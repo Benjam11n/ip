@@ -57,6 +57,54 @@ public class Joey {
                 continue;
             }
 
+            // Handle the "todo" command
+            if (userInput.startsWith("todo")) {
+                try {
+                    String taskName = userInput.substring(5);
+                    Task todo = new Todo(taskName);
+                    history.add(todo);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Joey: Added Todo: \"" + taskName + "\" to the history");
+                    System.out.println("____________________________________________________________");
+                } catch (Exception e) {
+                    System.out.println("Please specify a description after 'todo'.");
+                }
+            }
+
+            if (userInput.startsWith("deadline")) {
+                try {
+                    String[] parts = userInput.split(" /by", 2);
+                    String taskName = parts[0];
+                    String deadlineDate = parts[1];
+                    Task deadline = new Deadline(taskName, deadlineDate);
+                    history.add(deadline);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Joey: Added Deadline: \"" + taskName + "\" with deadline " + deadlineDate + " to the history");
+                    System.out.println("____________________________________________________________");
+                } catch (Exception e) {
+                    System.out.println("Please specify a task description and a deadline date after 'deadline'.\n" +
+                            "For example: 'deadline return book /by Sunday'");
+                }
+            }
+
+            if (userInput.startsWith("event")) {
+                try {
+                    String[] parts = userInput.split(" /from", 2);
+                    String taskName = parts[0].substring(6);
+                    String[] eventDetails = parts[1].split(" /to", 2);
+                    String startDate = eventDetails[0];
+                    String endDate = eventDetails[1];
+                    Task event = new Event(taskName, startDate, endDate);
+                    history.add(event);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Joey: Added Event: \"" + taskName + "\" from " + startDate + " to " + endDate + " to the history");
+                    System.out.println("____________________________________________________________");
+                } catch (Exception e) {
+                    System.out.println("Please specify a task description, start date, and end date after 'event'.\n" +
+                            "For example: 'event project meeting /from Mon 2pm /to 4pm'");
+                }
+            }
+
             // Handling the "list" command
             if (Objects.equals(userInput, "list")) {
                 System.out.println("____________________________________________________________");
@@ -73,13 +121,6 @@ public class Joey {
                 scanner.close();
                 return;
             }
-
-            // Default case for adding new tasks
-            Task newTask = new Task(userInput);
-            history.add(newTask);
-            System.out.println("____________________________________________________________");
-            System.out.println("Joey: Added \"" + userInput + "\" to the history");
-            System.out.println("____________________________________________________________");
         }
     }
 }

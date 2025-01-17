@@ -1,3 +1,5 @@
+import exceptions.TaskIndexOutOfBoundsException;
+
 import java.util.ArrayList;
 
 public class History {
@@ -11,21 +13,19 @@ public class History {
         this.history.add(item);
     }
 
-    public boolean markTask(int index) {
+    public void markTask(int index) throws TaskIndexOutOfBoundsException {
         if (index >= 0 && index < history.size()) {
             this.history.get(index).markDone();
-            return true;
         } else {
-            return false;
+            throw new TaskIndexOutOfBoundsException();
         }
     }
 
-    public boolean unMarkTask(int index) {
+    public void unMarkTask(int index) throws TaskIndexOutOfBoundsException {
         if (index >= 0 && index < history.size()) {
             this.history.get(index).markUndone();
-            return true;
         } else {
-            return false;
+            throw new TaskIndexOutOfBoundsException();
         }
     }
 
@@ -38,6 +38,7 @@ public class History {
             for (int i = 0; i < history.size(); i++) {
                 sb.append((i + 1)).append(". ").append(history.get(i)).append("\n");
             }
+            sb.append("\n");
             sb.append("Now you have ").append(this.history.size()).append(" tasks in the list.");
             return sb.toString();
         }

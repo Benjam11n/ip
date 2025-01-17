@@ -29,6 +29,16 @@ public class History {
         }
     }
 
+    public Task deleteTask(int index) throws TaskIndexOutOfBoundsException {
+        if (index >= 0 && index < history.size()) {
+            Task task = this.history.get(index);
+            this.history.remove(index);
+            return task;
+        } else {
+            throw new TaskIndexOutOfBoundsException();
+        }
+    }
+
     @Override
     public String toString() {
         if (history.isEmpty()) {

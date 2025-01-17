@@ -146,6 +146,20 @@ public class Joey {
                 }
             }
 
+            // Handling the "delete" command
+            else if (userInput.split(" ")[0].equals("delete")) {
+                try {
+                    int taskIndex = parseTaskIndex("delete", userInput);
+                    Task task = history.deleteTask(taskIndex);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Noted. I've removed this task:\n" + task + "\n");
+                    System.out.println(history);
+                    System.out.println("____________________________________________________________");
+                } catch (TaskIndexOutOfBoundsException | CommandFormatException e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
+            }
+
             // Handling the "list" command
             else if (Objects.equals(userInput, "list")) {
                 System.out.println("____________________________________________________________");
@@ -160,12 +174,15 @@ public class Joey {
                 System.out.println("____________________________________________________________");
                 scanner.close();
                 return;
-            } else {
+            }
+
+            else {
                 System.out.println("Error: I don't understand this command.\n" +
                         "Here are the commands you can use:\n" +
                         "  todo       - Add a todo task (e.g., todo read book)\n" +
                         "  deadline   - Add a task with deadline (e.g., deadline essay /by Sunday)\n" +
                         "  event      - Add an event (e.g., event meeting /from Mon 2pm /to 4pm)\n" +
+                        "  delete     - Delete a task\n" +
                         "  list       - Show all tasks\n" +
                         "  mark       - Mark a task as done (e.g., mark 1)\n" +
                         "  unmark     - Mark a task as not done (e.g., unmark 1)\n" +

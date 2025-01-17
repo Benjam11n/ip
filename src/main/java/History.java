@@ -1,19 +1,19 @@
 import java.util.ArrayList;
 
 public class History {
-    private ArrayList<Task> items;
+    private ArrayList<Task> history;
 
     public History() {
-        this.items = new ArrayList<>();
+        this.history = new ArrayList<>();
     }
 
     public void add(Task item) {
-        this.items.add(item);
+        this.history.add(item);
     }
 
     public boolean markTask(int index) {
-        if (index >= 0 && index < items.size()) {
-            this.items.get(index).markDone();
+        if (index >= 0 && index < history.size()) {
+            this.history.get(index).markDone();
             return true;
         } else {
             return false;
@@ -21,8 +21,8 @@ public class History {
     }
 
     public boolean unMarkTask(int index) {
-        if (index >= 0 && index < items.size()) {
-            this.items.get(index).markUndone();
+        if (index >= 0 && index < history.size()) {
+            this.history.get(index).markUndone();
             return true;
         } else {
             return false;
@@ -31,13 +31,14 @@ public class History {
 
     @Override
     public String toString() {
-        if (items.isEmpty()) {
+        if (history.isEmpty()) {
             return "History is empty.";
         } else {
             StringBuilder sb = new StringBuilder("History:\n");
-            for (int i = 0; i < items.size(); i++) {
-                sb.append((i + 1)).append(". ").append(items.get(i)).append("\n");
+            for (int i = 0; i < history.size(); i++) {
+                sb.append((i + 1)).append(". ").append(history.get(i)).append("\n");
             }
+            sb.append("Now you have ").append(this.history.size()).append(" tasks in the list.");
             return sb.toString();
         }
     }

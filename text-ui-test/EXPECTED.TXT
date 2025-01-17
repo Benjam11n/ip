@@ -1,7 +1,49 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+____________________________________________________________
+Hello! I'm Joey!
+What can I do for you?
+____________________________________________________________
+You: ____________________________________________________________
+Joey: Added Todo: "borrow book" to the history
+____________________________________________________________
+You: ____________________________________________________________
+History:
+1. [T][ ] borrow book
+Now you have 1 tasks in the list.
+____________________________________________________________
+You: ____________________________________________________________
+Joey: Added Deadline: "deadline return book" with deadline  Sunday to the history
+____________________________________________________________
+You: ____________________________________________________________
+Joey: Added Event: "project meeting" from  Mon 2pm to  4pm to the history
+____________________________________________________________
+You: Please specify a description after 'todo'.
+You: Please specify a task description and a deadline date after 'deadline'.
+For example: 'deadline return book /by Sunday'
+You: Please specify a task description, start date, and end date after 'event'.
+For example: 'event project meeting /from Mon 2pm /to 4pm'
+You: ____________________________________________________________
+Joey: Task 2 has been marked!
+____________________________________________________________
+You: ____________________________________________________________
+Joey: Task 1 has been marked!
+____________________________________________________________
+You: ____________________________________________________________
+History:
+1. [T][X] borrow book
+2. [D][X] deadline return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 3 tasks in the list.
+____________________________________________________________
+You: ____________________________________________________________
+Joey: Task 2 has been marked undone!
+____________________________________________________________
+You: ____________________________________________________________
+History:
+1. [T][X] borrow book
+2. [D][ ] deadline return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 3 tasks in the list.
+____________________________________________________________
+You: ____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________

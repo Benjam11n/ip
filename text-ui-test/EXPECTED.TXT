@@ -8,18 +8,20 @@ ____________________________________________________________
 You: ____________________________________________________________
 History:
 1. [T][ ] borrow book
+
 Now you have 1 tasks in the list.
 ____________________________________________________________
 You: ____________________________________________________________
-Joey: Added Deadline: "deadline return book" with deadline  Sunday to the history
+Joey: Added Deadline: "return book" with deadline Sunday to the history
 ____________________________________________________________
 You: ____________________________________________________________
-Joey: Added Event: "project meeting" from  Mon 2pm to  4pm to the history
+Joey: Added Event: "project meeting" from Mon 2pm to 4pm to the history
 ____________________________________________________________
-You: Please specify a description after 'todo'.
-You: Please specify a task description and a deadline date after 'deadline'.
+You: Error: Please specify a task description after 'todo'.
+For example: 'todo borrow book'
+You: Error: Please specify a task description and a deadline date after 'deadline'.
 For example: 'deadline return book /by Sunday'
-You: Please specify a task description, start date, and end date after 'event'.
+You: Error: Please specify a task description, start date, and end date after 'event'.
 For example: 'event project meeting /from Mon 2pm /to 4pm'
 You: ____________________________________________________________
 Joey: Task 2 has been marked!
@@ -30,18 +32,20 @@ ____________________________________________________________
 You: ____________________________________________________________
 History:
 1. [T][X] borrow book
-2. [D][X] deadline return book (by: Sunday)
+2. [D][X] return book (by: Sunday)
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+
 Now you have 3 tasks in the list.
 ____________________________________________________________
 You: ____________________________________________________________
-Joey: Task 2 has been marked undone!
+Joey: Task 2 has been unmarked!
 ____________________________________________________________
 You: ____________________________________________________________
 History:
 1. [T][X] borrow book
-2. [D][ ] deadline return book (by: Sunday)
+2. [D][ ] return book (by: Sunday)
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+
 Now you have 3 tasks in the list.
 ____________________________________________________________
 You: ____________________________________________________________

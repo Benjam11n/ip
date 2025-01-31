@@ -13,6 +13,10 @@ public class History {
         this.history.add(item);
     }
 
+    public ArrayList<Task> getTasks()  {
+        return this.history;
+    }
+
     public void markTask(int index) throws TaskIndexOutOfBoundsException {
         if (index >= 0 && index < history.size()) {
             this.history.get(index).markDone();

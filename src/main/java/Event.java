@@ -16,4 +16,21 @@ public class Event extends Task {
     public String toString() {
         return "[" + this.type + "]" + super.toString() + " (from: " + this.startDate + " to: " + this.endDate + ")";
     }
+
+    @Override
+    public String getStorageFormat() {
+        return String.format("E|%s|%b|%s|%s", getDescription(), isDone(), this.startDate, this.endDate);
+    }
+
+    public static Task createFromStorage(String data) {
+        String[] parts = data.split("\\|");
+        if (parts.length == 5) {
+            Event event = new Event(parts[1], parts[3], parts[4]);
+            if (Boolean.parseBoolean(parts[2])) {
+                event.markDone();
+            }
+            return event;
+        }
+        return null;
+    }
 }

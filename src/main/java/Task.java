@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private boolean isDone;
     private final String description;
 
@@ -15,6 +15,21 @@ public class Task {
         this.isDone = false;
     }
 
+    public boolean isDone() {
+        return this.isDone;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    // For storage purposes
+    public abstract String getStorageFormat();
+    public static Task createFromStorage(String data) {
+        // Provide implementation in a subclass
+        throw new UnsupportedOperationException("Subclass must implement this method.");
+    }
+
     @Override
     public String toString() {
         if (isDone) {
@@ -24,3 +39,4 @@ public class Task {
         }
     }
 }
+

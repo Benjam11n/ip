@@ -2,16 +2,9 @@ import enums.Command;
 import exceptions.CommandFormatException;
 import exceptions.TaskIndexOutOfBoundsException;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.Scanner;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.FileReader;
 import java.io.IOException;
 
 public class Joey {
@@ -34,10 +27,10 @@ public class Joey {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        History history = new History();
+        TaskList tasks = new TaskList();
 
         try {
-            Storage.readFile(history);  // Load saved tasks at startup
+            Storage.readFile(tasks);  // Load saved tasks at startup
         } catch (IOException e) {
             System.out.println("No saved tasks found or error reading saved tasks.");
         }
@@ -64,7 +57,7 @@ public class Joey {
                 case MARK:
                     try {
                         int taskIndex = parseTaskIndex("mark", userInput);
-                        history.markTask(taskIndex);
+                        tasks.markTask(taskIndex);
                         System.out.println("____________________________________________________________");
                         System.out.println("Joey: Task " + (taskIndex + 1) + " has been marked!");
                         System.out.println("____________________________________________________________");
@@ -75,7 +68,7 @@ public class Joey {
                 case UNMARK:
                     try {
                         int taskIndex = parseTaskIndex("unmark", userInput);
-                        history.unMarkTask(taskIndex);
+                        tasks.unMarkTask(taskIndex);
                         System.out.println("____________________________________________________________");
                         System.out.println("Joey: Task " + (taskIndex + 1) + " has been unmarked!");
                         System.out.println("____________________________________________________________");
@@ -97,7 +90,7 @@ public class Joey {
                         }
 
                         Task todo = new Todo(taskName);
-                        history.add(todo);
+                        tasks.add(todo);
 
                         System.out.println("____________________________________________________________");
                         System.out.println("Joey: Added Todo: \"" + taskName + "\" to the history");
@@ -124,7 +117,7 @@ public class Joey {
                         String deadlineDate = parts[1].trim();
                         Task deadline = new Deadline(taskName, deadlineDate);
 
-                        history.add(deadline);
+                        tasks.add(deadline);
 
                         System.out.println("____________________________________________________________");
                         System.out.println("Joey: Added Deadline: \"" + taskName + "\" with deadline " + deadlineDate + " to the history");
@@ -156,7 +149,7 @@ public class Joey {
                         String endDate = eventDetails[1].trim();
                         Task event = new Event(taskName, startDate, endDate);
 
-                        history.add(event);
+                        tasks.add(event);
 
                         System.out.println("____________________________________________________________");
                         System.out.println("Joey: Added Event: \"" + taskName + "\" from " + startDate + " to " + endDate + " to the history");
@@ -168,10 +161,10 @@ public class Joey {
                 case DELETE:
                     try {
                         int taskIndex = parseTaskIndex("delete", userInput);
-                        Task task = history.deleteTask(taskIndex);
+                        Task task = tasks.deleteTask(taskIndex);
                         System.out.println("____________________________________________________________");
                         System.out.println("Noted. I've removed this task:\n" + task + "\n");
-                        System.out.println(history);
+                        System.out.println(tasks);
                         System.out.println("____________________________________________________________");
                     } catch (TaskIndexOutOfBoundsException | CommandFormatException e) {
                         System.out.println("Error: " + e.getMessage());
@@ -179,7 +172,7 @@ public class Joey {
                     break;
                 case LIST:
                     System.out.println("____________________________________________________________");
-                    System.out.println(history);
+                    System.out.println(tasks);
                     System.out.println("____________________________________________________________");
                     break;
                 case BYE:
@@ -191,7 +184,7 @@ public class Joey {
             }
 
             try {
-                Storage.writeToFile(history);
+                Storage.writeToFile(tasks);
             } catch (IOException e) {
                 System.out.println(e.getMessage());
                 System.out.println("Error saving tasks.");

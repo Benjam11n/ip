@@ -2,41 +2,41 @@ import exceptions.TaskIndexOutOfBoundsException;
 
 import java.util.ArrayList;
 
-public class History {
-    private ArrayList<Task> history;
+public class TaskList {
+    private ArrayList<Task> tasks;
 
-    public History() {
-        this.history = new ArrayList<>();
+    public TaskList() {
+        this.tasks = new ArrayList<>();
     }
 
     public void add(Task item) {
-        this.history.add(item);
+        this.tasks.add(item);
     }
 
     public ArrayList<Task> getTasks()  {
-        return this.history;
+        return this.tasks;
     }
 
     public void markTask(int index) throws TaskIndexOutOfBoundsException {
-        if (index >= 0 && index < history.size()) {
-            this.history.get(index).markDone();
+        if (index >= 0 && index < this.tasks.size()) {
+            this.tasks.get(index).markDone();
         } else {
             throw new TaskIndexOutOfBoundsException();
         }
     }
 
     public void unMarkTask(int index) throws TaskIndexOutOfBoundsException {
-        if (index >= 0 && index < history.size()) {
-            this.history.get(index).markUndone();
+        if (index >= 0 && index < this.tasks.size()) {
+            this.tasks.get(index).markUndone();
         } else {
             throw new TaskIndexOutOfBoundsException();
         }
     }
 
     public Task deleteTask(int index) throws TaskIndexOutOfBoundsException {
-        if (index >= 0 && index < history.size()) {
-            Task task = this.history.get(index);
-            this.history.remove(index);
+        if (index >= 0 && index < this.tasks.size()) {
+            Task task = this.tasks.get(index);
+            this.tasks.remove(index);
             return task;
         } else {
             throw new TaskIndexOutOfBoundsException();
@@ -45,15 +45,15 @@ public class History {
 
     @Override
     public String toString() {
-        if (history.isEmpty()) {
+        if (this.tasks.isEmpty()) {
             return "History is empty.";
         } else {
             StringBuilder sb = new StringBuilder("History:\n");
-            for (int i = 0; i < history.size(); i++) {
-                sb.append((i + 1)).append(". ").append(history.get(i)).append("\n");
+            for (int i = 0; i < this.tasks.size(); i++) {
+                sb.append((i + 1)).append(". ").append(this.tasks.get(i)).append("\n");
             }
             sb.append("\n");
-            sb.append("Now you have ").append(this.history.size()).append(" tasks in the list.");
+            sb.append("Now you have ").append(this.tasks.size()).append(" tasks in the list.");
             return sb.toString();
         }
     }

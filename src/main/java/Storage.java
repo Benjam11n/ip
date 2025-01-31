@@ -14,7 +14,7 @@ public class Storage {
         }
     }
 
-    public static void readFile(History history) throws IOException {
+    public static void readFile(TaskList tasks) throws IOException {
         ensureDirectoryExists();
 
         // If file doesn't exist, just return - starting with empty history
@@ -41,18 +41,18 @@ public class Storage {
                             break;
                     }
                     if (task != null) {
-                        history.add(task);
+                        tasks.add(task);
                     }
                 }
             }
         }
     }
 
-    public static void writeToFile(History history) throws IOException {
+    public static void writeToFile(TaskList tasks) throws IOException {
         ensureDirectoryExists();
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(DATA_FILE.toFile()))) {
-            for (Task task : history.getTasks()) {
+            for (Task task : tasks.getTasks()) {
                 writer.write(task.getStorageFormat());
                 writer.newLine();
             }

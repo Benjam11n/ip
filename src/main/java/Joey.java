@@ -15,61 +15,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Joey {
-    private static final Path DATA_DIR = Paths.get("data");
-    private static final Path DATA_FILE = DATA_DIR.resolve("duke.txt");
-
-    private static void ensureDirectoryExists() throws IOException {
-        // Create data directory if it doesn't exist
-        if (!Files.exists(DATA_DIR)) {
-            Files.createDirectories(DATA_DIR);
-        }
-    }
-
-    private static void readFile(History history) throws IOException {
-        ensureDirectoryExists();
-
-        // If file doesn't exist, just return - starting with empty history
-        if (!Files.exists(DATA_FILE)) {
-            return;
-        }
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(DATA_FILE.toFile()))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-                String[] parts = line.split("\\|");
-                if (parts.length >= 2) {
-                    Task task = null;
-                    switch (parts[0]) {
-                        case "T":
-                            task = Todo.createFromStorage(line);
-                            break;
-                        case "D":
-                            task = Deadline.createFromStorage(line);
-                            break;
-                        case "E":
-                            task = Event.createFromStorage(line);
-                            break;
-                    }
-                    if (task != null) {
-                        history.add(task);
-                    }
-                }
-            }
-        }
-    }
-
-    private static void writeToFile(History history) throws IOException {
-        ensureDirectoryExists();
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(DATA_FILE.toFile()))) {
-            for (Task task : history.getTasks()) {
-                writer.write(task.getStorageFormat());
-                writer.newLine();
-            }
-        }
-    }
-
     private static int parseTaskIndex(String command, String userInput) throws CommandFormatException, TaskIndexOutOfBoundsException {
         if (userInput.length() <= command.length()) {
             throw new CommandFormatException("The task index cannot be empty.");
@@ -92,7 +37,7 @@ public class Joey {
         History history = new History();
 
         try {
-            readFile(history);  // Load saved tasks at startup
+            Storage.readFile(history);  // Load saved tasks at startup
         } catch (IOException e) {
             System.out.println("No saved tasks found or error reading saved tasks.");
         }
@@ -246,7 +191,7 @@ public class Joey {
             }
 
             try {
-                writeToFile(history);
+                Storage.writeToFile(history);
             } catch (IOException e) {
                 System.out.println(e.getMessage());
                 System.out.println("Error saving tasks.");

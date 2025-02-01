@@ -1,4 +1,4 @@
-package enums;
+package joey.enums;
 
 public enum TaskType {
     TODO("T"),

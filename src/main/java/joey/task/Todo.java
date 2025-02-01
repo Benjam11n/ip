@@ -1,4 +1,6 @@
-import enums.TaskType;
+package joey.task;
+
+import joey.enums.TaskType;
 
 public class Todo extends Task {
     private final TaskType type;

@@ -1,3 +1,5 @@
+package joey.task;
+
 public abstract class Task {
     private boolean isDone;
     private final String description;
@@ -23,7 +25,7 @@ public abstract class Task {
         return this.description;
     }
 
-    // For storage purposes
+    // For joey.storage purposes
     public abstract String getStorageFormat();
     public static Task createFromStorage(String data) {
         // Provide implementation in a subclass

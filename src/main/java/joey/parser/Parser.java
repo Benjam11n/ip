@@ -1,6 +1,14 @@
 package joey.parser;
 
-import joey.command.*;
+import joey.command.Command;
+import joey.command.DeadlineCommand;
+import joey.command.DeleteCommand;
+import joey.command.EventCommand;
+import joey.command.ExitCommand;
+import joey.command.ListCommand;
+import joey.command.MarkCommand;
+import joey.command.TodoCommand;
+import joey.command.UnmarkCommand;
 import joey.exception.CommandFormatException;
 
 import java.time.LocalDate;
@@ -89,11 +97,12 @@ public class Parser {
 
             case "deadline":
                 String[] deadlineParts = userInput.split(" /by ", 2);
-                if (deadlineParts.length < 2 || deadlineParts[0].trim().length() <= 9 || deadlineParts[1].trim().isEmpty()) {
+                if (deadlineParts.length < 2 || deadlineParts[0].trim().length() <= 9 ||
+                        deadlineParts[1].trim().isEmpty()) {
                     throw new CommandFormatException(DEADLINE_ERROR_MESSAGE);
                 }
 
-                String deadlineDescription = deadlineParts[0].substring(9).trim(); // Extract description after "deadline "
+                String deadlineDescription = deadlineParts[0].substring(9).trim();
                 LocalDate by = parseDate(deadlineParts[1].trim());
 
                 return new DeadlineCommand(deadlineDescription, by);

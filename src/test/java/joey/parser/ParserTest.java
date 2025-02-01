@@ -1,10 +1,19 @@
 package joey.parser;
 
-import joey.command.*;
+import joey.command.Command;
+import joey.command.DeadlineCommand;
+import joey.command.DeleteCommand;
+import joey.command.EventCommand;
+import joey.command.ExitCommand;
+import joey.command.ListCommand;
+import joey.command.MarkCommand;
+import joey.command.TodoCommand;
+import joey.command.UnmarkCommand;
 import joey.exception.CommandFormatException;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ParserTest {
     // Test valid commands

@@ -9,9 +9,11 @@ import joey.ui.Ui;
 
 import java.io.IOException;
 
-public class DeleteCommand extends IndexedCommand {
-    public DeleteCommand(String userInput) throws CommandFormatException {
-        super("delete", userInput);
+public class DeleteCommand implements Command {
+    private int taskIndex;
+
+    public DeleteCommand(int index) {
+        this.taskIndex = index;
     }
 
     @Override

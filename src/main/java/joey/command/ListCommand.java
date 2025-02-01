@@ -1,10 +1,8 @@
-package commands;
+package joey.command;
 
-import storage.Storage;
-import task.TaskList;
-import ui.Ui;
-
-import java.io.IOException;
+import joey.storage.Storage;
+import joey.task.TaskList;
+import joey.ui.Ui;
 
 public class ListCommand implements Command {
     @Override

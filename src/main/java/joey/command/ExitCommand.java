@@ -1,8 +1,8 @@
-package commands;
+package joey.command;
 
-import storage.Storage;
-import task.TaskList;
-import ui.Ui;
+import joey.storage.Storage;
+import joey.task.TaskList;
+import joey.ui.Ui;
 
 public class ExitCommand implements Command {
     @Override

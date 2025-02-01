@@ -1,6 +1,6 @@
-package task;
+package joey.task;
 
-import enums.TaskType;
+import joey.enums.TaskType;
 
 public class Event extends Task {
     private String startDate;

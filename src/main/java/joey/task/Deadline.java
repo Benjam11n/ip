@@ -1,6 +1,6 @@
-package task;
+package joey.task;
 
-import enums.TaskType;
+import joey.enums.TaskType;
 
 public class Deadline extends Task {
     private String deadline;

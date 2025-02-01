@@ -1,6 +1,6 @@
-package task;
+package joey.task;
 
-import exceptions.TaskIndexOutOfBoundsException;
+import joey.exception.TaskIndexOutOfBoundsException;
 
 import java.util.ArrayList;
 

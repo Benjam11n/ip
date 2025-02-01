@@ -1,7 +1,7 @@
-package parser;
+package joey.parser;
 
-import commands.*;
-import exceptions.CommandFormatException;
+import joey.command.*;
+import joey.exception.CommandFormatException;
 
 public class Parser {
     public static Command parse(String userInput) throws CommandFormatException {

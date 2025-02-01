@@ -3,7 +3,7 @@ Hello! I'm Joey!
 What can I do for you?
 ____________________________________________________________
 You: ____________________________________________________________
-Joey: Added task.Todo: "borrow book" to the history
+Joey: Added joey.task.Todo: "borrow book" to the history
 ____________________________________________________________
 You: ____________________________________________________________
 History:
@@ -12,22 +12,22 @@ History:
 Now you have 1 tasks in the list.
 ____________________________________________________________
 You: ____________________________________________________________
-Joey: Added task.Deadline: "return book" with deadline Sunday to the history
+Joey: Added joey.task.Deadline: "return book" with deadline Sunday to the history
 ____________________________________________________________
 You: ____________________________________________________________
-Joey: Added task.Event: "project meeting" from Mon 2pm to 4pm to the history
+Joey: Added joey.task.Event: "project meeting" from Mon 2pm to 4pm to the history
 ____________________________________________________________
-You: Error: Please specify a task description after 'todo'.
+You: Error: Please specify a joey.task description after 'todo'.
 For example: 'todo borrow book'
-You: Error: Please specify a task description and a deadline date after 'deadline'.
+You: Error: Please specify a joey.task description and a deadline date after 'deadline'.
 For example: 'deadline return book /by Sunday'
-You: Error: Please specify a task description, start date, and end date after 'event'.
+You: Error: Please specify a joey.task description, start date, and end date after 'event'.
 For example: 'event project meeting /from Mon 2pm /to 4pm'
 You: ____________________________________________________________
-Joey: task.Task 2 has been marked!
+Joey: joey.task.Task 2 has been marked!
 ____________________________________________________________
 You: ____________________________________________________________
-Joey: task.Task 1 has been marked!
+Joey: joey.task.Task 1 has been marked!
 ____________________________________________________________
 You: ____________________________________________________________
 History:
@@ -38,7 +38,7 @@ History:
 Now you have 3 tasks in the list.
 ____________________________________________________________
 You: ____________________________________________________________
-Joey: task.Task 2 has been unmarked!
+Joey: joey.task.Task 2 has been unmarked!
 ____________________________________________________________
 You: ____________________________________________________________
 History:

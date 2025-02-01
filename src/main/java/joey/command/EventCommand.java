@@ -1,11 +1,11 @@
-package commands;
+package joey.command;
 
-import exceptions.CommandFormatException;
-import storage.Storage;
-import task.Event;
-import task.Task;
-import task.TaskList;
-import ui.Ui;
+import joey.exception.CommandFormatException;
+import joey.storage.Storage;
+import joey.task.Event;
+import joey.task.Task;
+import joey.task.TaskList;
+import joey.ui.Ui;
 
 import java.io.IOException;
 

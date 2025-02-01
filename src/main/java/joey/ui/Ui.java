@@ -1,7 +1,7 @@
-package ui;
+package joey.ui;
 
-import task.Task;
-import task.TaskList;
+import joey.task.Task;
+import joey.task.TaskList;
 
 public class Ui {
     public void showWelcome() {
@@ -26,15 +26,15 @@ public class Ui {
     }
 
     public void showMarkedTask(Task task, int index) {
-        System.out.println("Marked task " + index + ": " + task);
+        System.out.println("Marked joey.task " + index + ": " + task);
     }
 
     public void showUnmarkedTask(Task task, int index) {
-        System.out.println("Unmarked task " + index + ": " + task);
+        System.out.println("Unmarked joey.task " + index + ": " + task);
     }
 
     public void showDeletedTask(Task task, TaskList tasks) {
-        System.out.println("Removed task:\n  " + task +
+        System.out.println("Removed joey.task:\n  " + task +
                 "\n" + "\n" + tasks);
     }
 

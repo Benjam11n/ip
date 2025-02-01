@@ -1,9 +1,11 @@
-import commands.Command;
-import exceptions.CommandFormatException;
-import parser.Parser;
-import storage.Storage;
-import task.*;
-import ui.Ui;
+package joey;
+
+import joey.command.Command;
+import joey.exception.CommandFormatException;
+import joey.parser.Parser;
+import joey.storage.Storage;
+import joey.task.*;
+import joey.ui.Ui;
 
 import java.util.Scanner;
 

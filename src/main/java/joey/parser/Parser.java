@@ -29,8 +29,23 @@ public class Parser {
     private static final String EVENT_ERROR_MESSAGE = """
             Please specify a task description, start date, and end date after 'event'
             For example: 'event concert /from 2025-02-01 /to 2025-02-02'""";
+    private static final String FIND_ERROR_MESSAGE = """
+            Please specify a description after 'find'
+            For example: 'find book'""";
     private static final String INVALID_DATE_ERROR_MESSAGE =
             "Invalid date format. Use YYYY-MM-DD.";
+    private static final String DEFAULT_ERROR_MESSAGE = """
+                        I don't understand this command.
+                        Here are the commands you can use:
+                          todo       - Add a todo task (e.g., todo read book)
+                          deadline   - Add a task with deadline (e.g., deadline essay /by Sunday)
+                          event      - Add an event (e.g., event meeting /from Mon 2pm /to 4pm)
+                          delete     - Delete a task
+                          list       - Show all tasks
+                          mark       - Mark a task as done (e.g., mark 1)
+                          unmark     - Mark a task as not done (e.g., unmark 1)
+                          find       - Find tasks
+                          bye        - Exit the program""";
 
     /**
      * Parses a task index from user input.
@@ -147,17 +162,7 @@ public class Parser {
                 return new ExitCommand();
 
             default:
-                throw new CommandFormatException("""
-                        I don't understand this command.
-                        Here are the commands you can use:
-                          todo       - Add a todo task (e.g., todo read book)
-                          deadline   - Add a task with deadline (e.g., deadline essay /by Sunday)
-                          event      - Add an event (e.g., event meeting /from Mon 2pm /to 4pm)
-                          delete     - Delete a task
-                          list       - Show all tasks
-                          mark       - Mark a task as done (e.g., mark 1)
-                          unmark     - Mark a task as not done (e.g., unmark 1)
-                          bye        - Exit the program""");
+                throw new CommandFormatException(DEFAULT_ERROR_MESSAGE);
         }
     }
 }

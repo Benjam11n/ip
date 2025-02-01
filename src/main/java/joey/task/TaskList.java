@@ -88,6 +88,18 @@ public class TaskList {
         }
     }
 
+    public ArrayList<Task> findTasks(String query) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : this.tasks) {
+            if (task.getDescription().toLowerCase().contains(query.toLowerCase())) {
+                matchingTasks.add(task);
+            }
+        }
+
+        return matchingTasks;
+    }
+
     @Override
     public String toString() {
         if (this.tasks.isEmpty()) {

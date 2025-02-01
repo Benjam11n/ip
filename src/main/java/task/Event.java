@@ -1,3 +1,5 @@
+package task;
+
 import enums.TaskType;
 
 public class Event extends Task {

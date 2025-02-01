@@ -1,3 +1,7 @@
+package storage;
+
+import task.*;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,7 +18,7 @@ public class Storage {
         }
     }
 
-    public static void readFile(TaskList tasks) throws IOException {
+    public void load(TaskList tasks) throws IOException {
         ensureDirectoryExists();
 
         // If file doesn't exist, just return - starting with empty history
@@ -25,7 +29,7 @@ public class Storage {
         try (BufferedReader reader = new BufferedReader(new FileReader(DATA_FILE.toFile()))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                System.out.println(line);
+
                 String[] parts = line.split("\\|");
                 if (parts.length >= 2) {
                     Task task = null;
@@ -48,7 +52,7 @@ public class Storage {
         }
     }
 
-    public static void writeToFile(TaskList tasks) throws IOException {
+    public void save(TaskList tasks) throws IOException {
         ensureDirectoryExists();
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(DATA_FILE.toFile()))) {

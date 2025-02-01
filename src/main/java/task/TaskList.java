@@ -1,3 +1,5 @@
+package task;
+
 import exceptions.TaskIndexOutOfBoundsException;
 
 import java.util.ArrayList;
@@ -15,6 +17,10 @@ public class TaskList {
 
     public ArrayList<Task> getTasks()  {
         return this.tasks;
+    }
+
+    public Task getTask(Integer index)  {
+        return this.tasks.get(index);
     }
 
     public void markTask(int index) throws TaskIndexOutOfBoundsException {
@@ -53,7 +59,7 @@ public class TaskList {
                 sb.append((i + 1)).append(". ").append(this.tasks.get(i)).append("\n");
             }
             sb.append("\n");
-            sb.append("Now you have ").append(this.tasks.size()).append(" tasks in the list.");
+            sb.append("You have ").append(this.tasks.size()).append(" tasks in the list.");
             return sb.toString();
         }
     }

@@ -8,13 +8,15 @@ import joey.task.TaskList;
 import joey.ui.Ui;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class DeadlineCommand implements Command {
     private String description;
-    private String by;
+    private LocalDate by;
     private static final String ERROR_MESSAGE = """
             Please specify a task description and a deadline date after 'deadline'.
-            For example: 'deadline return book /by Sunday'""";
+            For example: 'deadline return book /by 2025-02-01'""";
 
 
     public DeadlineCommand(String userInput) throws CommandFormatException {
@@ -26,8 +28,13 @@ public class DeadlineCommand implements Command {
             throw new CommandFormatException(ERROR_MESSAGE);
         }
         this.description = parts[0].trim();
-        this.by = parts[1].trim();
-        if (this.description.isEmpty() || this.by.isEmpty()) {
+
+        try {
+            this.by = LocalDate.parse(parts[1].trim());
+        } catch (DateTimeParseException e) {
+            throw new CommandFormatException("Invalid date format. Use YYYY-MM-DD.");
+        }
+        if (this.description.isEmpty()) {
             throw new CommandFormatException(ERROR_MESSAGE);
         }
     }

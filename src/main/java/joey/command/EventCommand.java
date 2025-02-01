@@ -8,36 +8,47 @@ import joey.task.TaskList;
 import joey.ui.Ui;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class EventCommand implements Command {
     private String description;
-    private String startDate;
-    private String endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private static final String ERROR_MESSAGE = """
             Please specify a task description, start date, and end date after 'event'
-            For example: 'event project meeting /from Mon 2pm /to 4pm'""";
+            For example: 'event concert /from 2025-02-01 /to 2025-02-02'""";
 
 
     public EventCommand(String userInput) throws CommandFormatException {
         if (userInput.length() <= 5) {
             throw new CommandFormatException(ERROR_MESSAGE);
         }
-        String[] parts = userInput.split(" /from", 2);
+
+        String[] parts = userInput.split(" /from ", 2);
         if (parts.length < 2) {
             throw new CommandFormatException(ERROR_MESSAGE);
         }
 
         this.description = parts[0].substring(6).trim();
-        String[] eventDetails = parts[1].split(" /to", 2);
+        if (this.description.isEmpty()) {
+            throw new CommandFormatException("Description cannot be empty.");
+        }
+
+        String[] eventDetails = parts[1].split(" /to ", 2);
         if (eventDetails.length < 2) {
             throw new CommandFormatException(ERROR_MESSAGE);
         }
 
-        this.startDate = eventDetails[0].trim();
-        this.endDate = eventDetails[1].trim();
+        try {
+            this.startDate = LocalDate.parse(eventDetails[0].trim());
+            this.endDate = LocalDate.parse(eventDetails[1].trim());
 
-        if (this.description.isEmpty() || this.startDate.isEmpty() || this.endDate.isEmpty()) {
-            throw new CommandFormatException("Description, start date and end date cannot be empty.");
+            if (startDate.isAfter(endDate)) {
+                throw new CommandFormatException("Start date cannot be after end date.");
+            }
+        } catch (DateTimeParseException e) {
+            throw new CommandFormatException("Invalid date format. Use YYYY-MM-DD.");
         }
     }
 

@@ -6,6 +6,11 @@ import joey.exception.CommandFormatException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parses user input into appropriate Command objects.
+ * This class handles the interpretation of user commands and their arguments,
+ * converting them into executable Command objects.
+ */
 public class Parser {
     private static final String TODO_ERROR_MESSAGE = """
             Please specify a task description after 'todo'.
@@ -19,6 +24,15 @@ public class Parser {
     private static final String INVALID_DATE_ERROR_MESSAGE =
             "Invalid date format. Use YYYY-MM-DD.";
 
+    /**
+     * Parses a task index from user input.
+     * Converts 1-based user input to 0-based index for internal use.
+     *
+     * @param commandName The name of the command being processed
+     * @param userInput The full user input string
+     * @return The parsed task index (0-based)
+     * @throws CommandFormatException if the index is missing or invalid
+     */
     private static int parseTaskIndex(String commandName, String userInput) throws CommandFormatException {
         String[] parts = userInput.trim().split("\\s+", 2);
 
@@ -33,6 +47,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a date string into a LocalDate object.
+     *
+     * @param dateStr The date string in YYYY-MM-DD format
+     * @return The parsed LocalDate
+     * @throws CommandFormatException if the date format is invalid
+     */
     private static LocalDate parseDate(String dateStr) throws CommandFormatException {
         try {
             return LocalDate.parse(dateStr);
@@ -41,6 +62,20 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses user input into a specific Command object.
+     * Supports commands: todo, deadline, event, list, mark, unmark, delete, and bye.
+     * Command formats:
+     * - todo: todo [description]
+     * - deadline: deadline [description] /by [date]
+     * - event: event [description] /from [start-date] /to [end-date]
+     * - mark/unmark/delete: [command] [task-number]
+     * - list/bye: no additional arguments needed
+     *
+     * @param userInput The raw user input string
+     * @return A Command object representing the parsed command
+     * @throws CommandFormatException if the command format is invalid
+     */
     public static Command parse(String userInput) throws CommandFormatException {
         String commandWord = userInput.trim().split(" ")[0].toLowerCase();
 

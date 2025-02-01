@@ -7,21 +7,38 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * Handles the persistence of tasks to and from file storage.
+ * This class manages saving and loading tasks from a text file
+ * located in the 'data' directory.
+ */
 public class Storage {
     private static final Path DATA_DIR = Paths.get("data");
     private static final Path DATA_FILE = DATA_DIR.resolve("duke.txt");
 
+    /**
+     * Creates the data directory if it doesn't already exist.
+     *
+     * @throws IOException if there is an error creating the directory
+     */
     private static void ensureDirectoryExists() throws IOException {
-        // Create data directory if it doesn't exist
         if (!Files.exists(DATA_DIR)) {
             Files.createDirectories(DATA_DIR);
         }
     }
 
+    /**
+     * Loads tasks from the storage file into the provided task list.
+     * If the storage file doesn't exist, the task list remains empty.
+     * Each line in the file represents one task in the format specific
+     * to its type (Todo, Deadline, or Event).
+     *
+     * @param tasks The task list to load the tasks into
+     * @throws IOException if there is an error reading from the file
+     */
     public void load(TaskList tasks) throws IOException {
         ensureDirectoryExists();
 
-        // If file doesn't exist, just return - starting with empty history
         if (!Files.exists(DATA_FILE)) {
             return;
         }
@@ -29,7 +46,6 @@ public class Storage {
         try (BufferedReader reader = new BufferedReader(new FileReader(DATA_FILE.toFile()))) {
             String line;
             while ((line = reader.readLine()) != null) {
-
                 String[] parts = line.split("\\|");
                 if (parts.length >= 2) {
                     Task task = null;
@@ -52,6 +68,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves all tasks from the provided task list to the storage file.
+     * Creates the storage file if it doesn't exist, or overwrites it if it does.
+     * Each task is saved in its type-specific format using getStorageFormat().
+     *
+     * @param tasks The task list containing the tasks to save
+     * @throws IOException if there is an error writing to the file
+     */
     public void save(TaskList tasks) throws IOException {
         ensureDirectoryExists();
 

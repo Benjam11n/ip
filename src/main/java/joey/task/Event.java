@@ -5,11 +5,22 @@ import joey.enums.TaskType;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a start and end date.
+ * Extends the base Task class with event-specific functionality.
+ */
 public class Event extends Task {
     private LocalDate startDate;
     private LocalDate endDate;
     private final TaskType type;
 
+    /**
+     * Constructs a new event task.
+     *
+     * @param description The description of the event
+     * @param startDate The date when the event starts
+     * @param endDate The date when the event ends
+     */
     public Event(String description, LocalDate startDate, LocalDate endDate) {
         super(description);
         this.startDate = startDate;
@@ -32,6 +43,13 @@ public class Event extends Task {
         return String.format("E|%s|%b|%s|%s", getDescription(), isDone(), this.startDate, this.endDate);
     }
 
+    /**
+     * Creates a new Event task from its storage format string representation.
+     *
+     * @param data The string representation of the event task from storage
+     *             Expected format: "E|description|isDone|startDate|endDate"
+     * @return A new Event task instance, or null if the data format is invalid
+     */
     public static Task createFromStorage(String data) {
         String[] parts = data.split("\\|");
         if (parts.length == 5) {

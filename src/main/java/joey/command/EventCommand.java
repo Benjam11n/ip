@@ -1,6 +1,5 @@
 package joey.command;
 
-import joey.exception.CommandFormatException;
 import joey.storage.Storage;
 import joey.task.Event;
 import joey.task.Task;
@@ -9,7 +8,6 @@ import joey.ui.Ui;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 public class EventCommand implements Command {
     private String description;
@@ -17,7 +15,7 @@ public class EventCommand implements Command {
     private LocalDate endDate;
 
 
-    public EventCommand(String description, LocalDate startDate, LocalDate endDate) throws CommandFormatException {
+    public EventCommand(String description, LocalDate startDate, LocalDate endDate) {
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;

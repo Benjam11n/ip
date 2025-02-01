@@ -3,6 +3,8 @@ package joey.ui;
 import joey.task.Task;
 import joey.task.TaskList;
 
+import java.util.ArrayList;
+
 public class Ui {
     public void showWelcome() {
         this.showLine();
@@ -36,6 +38,18 @@ public class Ui {
     public void showDeletedTask(Task task, TaskList tasks) {
         System.out.println("Removed joey.task:\n  " + task +
                 "\n" + "\n" + tasks);
+    }
+
+    public void showMatchingTasks(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("History is empty.");
+        } else {
+            StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
+            for (int i = 0; i < tasks.size(); i++) {
+                sb.append((i + 1)).append(". ").append(tasks.get(i));
+            }
+            System.out.println(sb);
+        }
     }
 
     public void showLine() {

@@ -4,25 +4,51 @@ import joey.exception.TaskIndexOutOfBoundsException;
 
 import java.util.ArrayList;
 
+/**
+ * Manages a collection of tasks and provides operations for task manipulation.
+ * This class handles adding, marking, unmarking, and deleting tasks from the list.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
-
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Adds a new task to the list.
+     *
+     * @param item The task to be added
+     */
     public void add(Task item) {
         this.tasks.add(item);
     }
 
-    public ArrayList<Task> getTasks()  {
+    /**
+     * Returns the list of all tasks.
+     *
+     * @return ArrayList containing all tasks
+     */
+    public ArrayList<Task> getTasks() {
         return this.tasks;
     }
 
-    public Task getTask(Integer index)  {
+    /**
+     * Returns a specific task from the list by its index.
+     *
+     * @param index The index of the task to retrieve
+     * @return The task at the specified index
+     * @throws IndexOutOfBoundsException if the index is out of range
+     */
+    public Task getTask(Integer index) {
         return this.tasks.get(index);
     }
 
+    /**
+     * Marks a task as completed at the specified index.
+     *
+     * @param index The index of the task to mark as completed
+     * @throws TaskIndexOutOfBoundsException if the index is out of range
+     */
     public void markTask(int index) throws TaskIndexOutOfBoundsException {
         if (index >= 0 && index < this.tasks.size()) {
             this.tasks.get(index).markDone();
@@ -31,6 +57,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as not completed at the specified index.
+     *
+     * @param index The index of the task to mark as not completed
+     * @throws TaskIndexOutOfBoundsException if the index is out of range
+     */
     public void unMarkTask(int index) throws TaskIndexOutOfBoundsException {
         if (index >= 0 && index < this.tasks.size()) {
             this.tasks.get(index).markUndone();
@@ -39,6 +71,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Removes and returns a task at the specified index.
+     *
+     * @param index The index of the task to delete
+     * @return The deleted task
+     * @throws TaskIndexOutOfBoundsException if the index is out of range
+     */
     public Task deleteTask(int index) throws TaskIndexOutOfBoundsException {
         if (index >= 0 && index < this.tasks.size()) {
             Task task = this.tasks.get(index);
@@ -63,5 +102,4 @@ public class TaskList {
             return sb.toString();
         }
     }
-
 }

@@ -8,9 +8,10 @@ import joey.ui.Ui;
 
 import java.io.IOException;
 
-public class UnmarkCommand extends IndexedCommand {
-    public UnmarkCommand(String userInput) throws CommandFormatException {
-        super("unmark", userInput);
+public class UnmarkCommand implements Command {
+    private int taskIndex;
+    public UnmarkCommand(int index) {
+        this.taskIndex = index;
     }
 
     @Override

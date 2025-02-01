@@ -1,6 +1,4 @@
 package joey.command;
-
-import joey.exception.CommandFormatException;
 import joey.storage.Storage;
 import joey.task.Deadline;
 import joey.task.Task;
@@ -9,34 +7,15 @@ import joey.ui.Ui;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 public class DeadlineCommand implements Command {
     private String description;
     private LocalDate by;
-    private static final String ERROR_MESSAGE = """
-            Please specify a task description and a deadline date after 'deadline'.
-            For example: 'deadline return book /by 2025-02-01'""";
 
 
-    public DeadlineCommand(String userInput) throws CommandFormatException {
-        if (userInput.length() <= 9) {
-            throw new CommandFormatException(ERROR_MESSAGE);
-        }
-        String[] parts = userInput.substring(9).split(" /by ");
-        if (parts.length < 2) {
-            throw new CommandFormatException(ERROR_MESSAGE);
-        }
-        this.description = parts[0].trim();
-
-        try {
-            this.by = LocalDate.parse(parts[1].trim());
-        } catch (DateTimeParseException e) {
-            throw new CommandFormatException("Invalid date format. Use YYYY-MM-DD.");
-        }
-        if (this.description.isEmpty()) {
-            throw new CommandFormatException(ERROR_MESSAGE);
-        }
+    public DeadlineCommand(String description, LocalDate by) {
+        this.description = description;
+        this.by = by;
     }
 
     @Override

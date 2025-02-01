@@ -8,9 +8,10 @@ import joey.ui.Ui;
 
 import java.io.IOException;
 
-public class MarkCommand extends IndexedCommand {
-    public MarkCommand(String userInput) throws CommandFormatException {
-        super("mark", userInput);
+public class MarkCommand implements Command {
+    private int taskIndex;
+    public MarkCommand(int index) {
+        this.taskIndex = index;
     }
 
     @Override

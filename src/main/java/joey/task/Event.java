@@ -1,9 +1,9 @@
 package joey.task;
 
-import joey.enums.TaskType;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import joey.enums.TaskType;
 
 /**
  * Represents a task with a start and end date.

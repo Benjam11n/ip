@@ -1,9 +1,9 @@
 package joey.ui;
 
+import java.util.ArrayList;
+
 import joey.task.Task;
 import joey.task.TaskList;
-
-import java.util.ArrayList;
 
 /**
  * Handles all user interface operations for the task management application.
@@ -83,8 +83,8 @@ public class Ui {
      * @param tasks The updated task list after deletion.
      */
     public void showDeletedTask(Task task, TaskList tasks) {
-        System.out.println("Removed task:\n  " + task +
-                "\n" + "\n" + tasks);
+        System.out.println("Removed task:\n  " + task
+                + "\n" + "\n" + tasks);
     }
 
     /**

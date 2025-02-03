@@ -1,13 +1,16 @@
 package joey.command;
 
+import java.io.IOException;
+
 import joey.exception.CommandFormatException;
 import joey.exception.TaskIndexOutOfBoundsException;
 import joey.storage.Storage;
 import joey.task.TaskList;
 import joey.ui.Ui;
 
-import java.io.IOException;
-
+/**
+ * Represents a command to mark a task in the task list as done.
+ */
 public class MarkCommand implements Command {
     private int taskIndex;
     public MarkCommand(int index) {

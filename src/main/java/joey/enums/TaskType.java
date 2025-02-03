@@ -1,5 +1,9 @@
 package joey.enums;
 
+/**
+ * Represents the possible types of tasks currently supported by Joey.
+ * Each task type has an associated single-character symbol used in storage format.
+ */
 public enum TaskType {
     TODO("T"),
     DEADLINE("D"),

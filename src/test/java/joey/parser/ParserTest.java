@@ -1,5 +1,10 @@
 package joey.parser;
 
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
 import joey.command.Command;
 import joey.command.DeadlineCommand;
 import joey.command.DeleteCommand;
@@ -10,10 +15,6 @@ import joey.command.MarkCommand;
 import joey.command.TodoCommand;
 import joey.command.UnmarkCommand;
 import joey.exception.CommandFormatException;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ParserTest {
     // Test valid commands

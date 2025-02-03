@@ -1,8 +1,8 @@
 package joey.task;
 
-import joey.exception.TaskIndexOutOfBoundsException;
-
 import java.util.ArrayList;
+
+import joey.exception.TaskIndexOutOfBoundsException;
 
 /**
  * Manages a collection of tasks and provides operations for task manipulation.
@@ -88,6 +88,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds and returns tasks that matches the search query
+     *
+     * @param query The search query
+     * @return The tasks matching the search query
+     */
     public ArrayList<Task> findTasks(String query) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
 

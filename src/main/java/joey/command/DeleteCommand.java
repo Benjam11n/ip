@@ -1,5 +1,7 @@
 package joey.command;
 
+import java.io.IOException;
+
 import joey.exception.CommandFormatException;
 import joey.exception.TaskIndexOutOfBoundsException;
 import joey.storage.Storage;
@@ -7,8 +9,10 @@ import joey.task.Task;
 import joey.task.TaskList;
 import joey.ui.Ui;
 
-import java.io.IOException;
-
+/**
+ * Represents a command to delete a task in the task list.
+ * This command adds the task specified from the task list and removes it from storage.
+ */
 public class DeleteCommand implements Command {
     private int taskIndex;
 

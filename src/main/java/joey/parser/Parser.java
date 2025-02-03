@@ -8,6 +8,7 @@ import joey.command.DeadlineCommand;
 import joey.command.DeleteCommand;
 import joey.command.EventCommand;
 import joey.command.ExitCommand;
+import joey.command.FindCommand;
 import joey.command.ListCommand;
 import joey.command.MarkCommand;
 import joey.command.TodoCommand;
@@ -140,6 +141,12 @@ public class Parser {
             return new EventCommand(eventDescription, startDate, endDate);
         case "list":
             return new ListCommand();
+        case "find":
+            String[] findParts = userInput.trim().split("\\s+", 2);
+            if (findParts.length < 2 || findParts[1].trim().isEmpty()) {
+                throw new CommandFormatException(FIND_ERROR_MESSAGE);
+            }
+            return new FindCommand(findParts[1].trim());
         case "mark":
             int markIndex = parseTaskIndex(commandWord, userInput);
             return new MarkCommand(markIndex);

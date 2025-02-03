@@ -1,18 +1,19 @@
 package joey.command;
 
-import joey.storage.Storage;
-import joey.task.TaskList;
-import joey.ui.Ui;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.times;
 
 import java.io.IOException;
 import java.time.LocalDate;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.times;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
+import joey.storage.Storage;
+import joey.task.TaskList;
+import joey.ui.Ui;
 
 public class EventCommandTest {
 

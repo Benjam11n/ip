@@ -1,12 +1,15 @@
 package joey.command;
 
+import java.util.ArrayList;
+
 import joey.storage.Storage;
 import joey.task.Task;
 import joey.task.TaskList;
 import joey.ui.Ui;
 
-import java.util.ArrayList;
-
+/**
+ * Represents a command to find a task in the task list.
+ */
 public class FindCommand implements Command {
     private String query;
 

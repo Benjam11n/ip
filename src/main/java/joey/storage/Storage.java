@@ -1,11 +1,5 @@
 package joey.storage;
 
-import joey.task.Deadline;
-import joey.task.Event;
-import joey.task.Task;
-import joey.task.TaskList;
-import joey.task.Todo;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -14,6 +8,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import joey.task.Deadline;
+import joey.task.Event;
+import joey.task.Task;
+import joey.task.TaskList;
+import joey.task.Todo;
 
 /**
  * Handles the persistence of tasks to and from file storage.
@@ -44,7 +44,8 @@ public class Storage {
      * @param tasks The task list to load the tasks into
      * @throws IOException if there is an error reading from the file
      */
-    public void load(TaskList tasks) throws IOException {
+    @SuppressWarnings("checkstyle:MissingSwitchDefault")
+    public void load(TaskList tasks) throws IOException, IllegalStateException {
         ensureDirectoryExists();
 
         if (!Files.exists(DATA_FILE)) {
@@ -58,15 +59,17 @@ public class Storage {
                 if (parts.length >= 2) {
                     Task task = null;
                     switch (parts[0]) {
-                        case "T":
-                            task = Todo.createFromStorage(line);
-                            break;
-                        case "D":
-                            task = Deadline.createFromStorage(line);
-                            break;
-                        case "E":
-                            task = Event.createFromStorage(line);
-                            break;
+                    case "T":
+                        task = Todo.createFromStorage(line);
+                        break;
+                    case "D":
+                        task = Deadline.createFromStorage(line);
+                        break;
+                    case "E":
+                        task = Event.createFromStorage(line);
+                        break;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + parts[0]);
                     }
                     if (task != null) {
                         tasks.add(task);

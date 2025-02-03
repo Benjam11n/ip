@@ -1,5 +1,8 @@
 package joey.parser;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import joey.command.Command;
 import joey.command.DeadlineCommand;
 import joey.command.DeleteCommand;
@@ -10,9 +13,6 @@ import joey.command.MarkCommand;
 import joey.command.TodoCommand;
 import joey.command.UnmarkCommand;
 import joey.exception.CommandFormatException;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 /**
  * Parses user input into appropriate Command objects.
@@ -103,66 +103,56 @@ public class Parser {
         String commandWord = userInput.trim().split(" ")[0].toLowerCase();
 
         switch (commandWord) {
-            case "todo":
-                String[] todoParts = userInput.trim().split("\\s+", 2);
-                if (todoParts.length < 2 || todoParts[1].trim().isEmpty()) {
-                    throw new CommandFormatException(TODO_ERROR_MESSAGE);
-                }
-                return new TodoCommand(todoParts[1].trim());
+        case "todo":
+            String[] todoParts = userInput.trim().split("\\s+", 2);
+            if (todoParts.length < 2 || todoParts[1].trim().isEmpty()) {
+                throw new CommandFormatException(TODO_ERROR_MESSAGE);
+            }
+            return new TodoCommand(todoParts[1].trim());
+        case "deadline":
+            String[] deadlineParts = userInput.split(" /by ", 2);
+            if (deadlineParts.length < 2 || deadlineParts[0].trim().length() <= 9
+                    || deadlineParts[1].trim().isEmpty()) {
+                throw new CommandFormatException(DEADLINE_ERROR_MESSAGE);
+            }
 
-            case "deadline":
-                String[] deadlineParts = userInput.split(" /by ", 2);
-                if (deadlineParts.length < 2 || deadlineParts[0].trim().length() <= 9 ||
-                        deadlineParts[1].trim().isEmpty()) {
-                    throw new CommandFormatException(DEADLINE_ERROR_MESSAGE);
-                }
+            String deadlineDescription = deadlineParts[0].substring(9).trim();
+            LocalDate by = parseDate(deadlineParts[1].trim());
+            return new DeadlineCommand(deadlineDescription, by);
+        case "event":
+            String[] eventParts = userInput.split(" /from ", 2);
+            if (eventParts.length < 2) {
+                throw new CommandFormatException(EVENT_ERROR_MESSAGE);
+            }
 
-                String deadlineDescription = deadlineParts[0].substring(9).trim();
-                LocalDate by = parseDate(deadlineParts[1].trim());
+            String[] eventDetails = eventParts[1].split(" /to ", 2);
+            if (eventDetails.length < 2) {
+                throw new CommandFormatException(EVENT_ERROR_MESSAGE);
+            }
 
-                return new DeadlineCommand(deadlineDescription, by);
+            String eventDescription = eventParts[0].trim();
+            LocalDate startDate = parseDate(eventDetails[0].trim());
+            LocalDate endDate = parseDate(eventDetails[1].trim());
 
-            case "event":
-                String[] eventParts = userInput.split(" /from ", 2);
-                if (eventParts.length < 2) {
-                    throw new CommandFormatException(EVENT_ERROR_MESSAGE);
-                }
-
-                String[] eventDetails = eventParts[1].split(" /to ", 2);
-                if (eventDetails.length < 2) {
-                    throw new CommandFormatException(EVENT_ERROR_MESSAGE);
-                }
-
-                String eventDescription = eventParts[0].trim();
-                LocalDate startDate = parseDate(eventDetails[0].trim());
-                LocalDate endDate = parseDate(eventDetails[1].trim());
-
-                if (startDate.isAfter(endDate)) {
-                    throw new CommandFormatException("Start date cannot be after end date.");
-                }
-
-                return new EventCommand(eventDescription, startDate, endDate);
-
-            case "list":
-                return new ListCommand();
-
-            case "mark":
-                int markIndex = parseTaskIndex(commandWord, userInput);
-                return new MarkCommand(markIndex);
-
-            case "unmark":
-                int unmarkIndex = parseTaskIndex(commandWord, userInput);
-                return new UnmarkCommand(unmarkIndex);
-
-            case "delete":
-                int deleteIndex = parseTaskIndex(commandWord, userInput);
-                return new DeleteCommand(deleteIndex);
-
-            case "bye":
-                return new ExitCommand();
-
-            default:
-                throw new CommandFormatException(DEFAULT_ERROR_MESSAGE);
+            if (startDate.isAfter(endDate)) {
+                throw new CommandFormatException("Start date cannot be after end date.");
+            }
+            return new EventCommand(eventDescription, startDate, endDate);
+        case "list":
+            return new ListCommand();
+        case "mark":
+            int markIndex = parseTaskIndex(commandWord, userInput);
+            return new MarkCommand(markIndex);
+        case "unmark":
+            int unmarkIndex = parseTaskIndex(commandWord, userInput);
+            return new UnmarkCommand(unmarkIndex);
+        case "delete":
+            int deleteIndex = parseTaskIndex(commandWord, userInput);
+            return new DeleteCommand(deleteIndex);
+        case "bye":
+            return new ExitCommand();
+        default:
+            throw new CommandFormatException(DEFAULT_ERROR_MESSAGE);
         }
     }
 }

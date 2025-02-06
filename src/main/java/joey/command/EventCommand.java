@@ -38,6 +38,7 @@ public class EventCommand implements Command {
      * @param tasks The task list to add the event to
      * @param ui The UI to display the confirmation message
      * @param storage The storage to save the updated task list
+     * @return The confirmation message indicating the deadline was added
      * @throws IOException if there is an error saving to storage
      */
     @Override

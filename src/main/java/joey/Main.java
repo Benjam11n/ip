@@ -9,11 +9,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import joey.ui.MainWindow;
 
+/**
+ * Entry point to the application
+ */
 public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            // Create Joey instance
             Joey joey = new Joey();
 
             // Load tasks once at startup

@@ -40,6 +40,9 @@ public class MainWindow extends AnchorPane {
         joey = j;
     }
 
+    /**
+     * Displays the welcome message
+     */
     public void showWelcome() {
         String welcomeMsg = joey.getUi().showWelcome();
 

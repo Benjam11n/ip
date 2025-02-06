@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import joey.exception.CommandFormatException;
 import joey.storage.Storage;
 import joey.task.TaskList;
 import joey.ui.Ui;
@@ -33,7 +34,7 @@ public class DeadlineCommandTest {
     }
 
     @Test
-    void execute_validCommand_addsToTaskList() throws IOException {
+    void execute_validCommand_addsToTaskList() throws CommandFormatException, IOException {
         deadlineCommand.execute(mockTaskList, mockUi, mockStorage);
 
         // Verify that TaskList's add method was called once with a new Deadline task

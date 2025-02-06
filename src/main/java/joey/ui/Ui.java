@@ -23,14 +23,6 @@ public class Ui {
     }
 
     /**
-     * Displays the user input prompt "You: " to the console.
-     */
-    public String showPrompt() {
-        System.out.print("You: ");
-        return "You: ";
-    }
-
-    /**
      * Displays confirmation of a task being added and shows the updated task list.
      *
      * @param task The task that was just added.

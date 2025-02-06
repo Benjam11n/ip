@@ -21,11 +21,11 @@ public class DeleteCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CommandFormatException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CommandFormatException {
         try {
             Task deletedTask = tasks.deleteTask(taskIndex);
             storage.save(tasks);
-            ui.showDeletedTask(deletedTask, tasks);
+            return ui.showDeletedTask(deletedTask, tasks);
         } catch (TaskIndexOutOfBoundsException e) {
             throw new CommandFormatException("Task " + (taskIndex + 1) + " does not exist.");
         } catch (IOException e) {

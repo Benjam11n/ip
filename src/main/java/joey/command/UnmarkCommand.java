@@ -18,11 +18,11 @@ public class UnmarkCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CommandFormatException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CommandFormatException {
         try {
             tasks.unMarkTask(taskIndex);
             storage.save(tasks);
-            ui.showUnmarkedTask(tasks.getTask(taskIndex), taskIndex + 1);
+            return ui.showUnmarkedTask(tasks.getTask(taskIndex), taskIndex + 1);
         } catch (TaskIndexOutOfBoundsException e) {
             throw new CommandFormatException("Task " + (taskIndex + 1) + " does not exist.");
         } catch (IOException e) {

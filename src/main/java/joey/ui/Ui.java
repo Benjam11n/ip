@@ -15,17 +15,11 @@ public class Ui {
     /**
      * Displays the welcome message when the application starts.
      */
-    public void showWelcome() {
+    public String showWelcome() {
         this.showLine();
         System.out.println("Hello! I'm Joey!\nWhat can I do for you?");
         this.showLine();
-    }
-
-    /**
-     * Displays the user input prompt "You: " to the console.
-     */
-    public void showPrompt() {
-        System.out.print("You: ");
+        return "Hello! I'm Joey!\nWhat can I do for you?";
     }
 
     /**
@@ -34,8 +28,8 @@ public class Ui {
      * @param task The task that was just added.
      * @param tasks The updated task list containing all tasks.
      */
-    public void showAddedTask(Task task, TaskList tasks) {
-        System.out.println("Added: " + task + "\n" + "\n" + tasks);
+    public String showAddedTask(Task task, TaskList tasks) {
+        return "Added: " + task + "\n" + "\n" + tasks;
     }
 
     /**
@@ -43,8 +37,8 @@ public class Ui {
      *
      * @param tasks The task list to be displayed.
      */
-    public void showTaskList(TaskList tasks) {
-        System.out.println(tasks);
+    public String showTaskList(TaskList tasks) {
+        return tasks.toString();
     }
 
     /**
@@ -52,8 +46,8 @@ public class Ui {
      *
      * @param message The error message to be displayed to the user.
      */
-    public void showError(String message) {
-        System.out.println("Error: " + message);
+    public String showError(String message) {
+        return "Error: " + message;
     }
 
     /**
@@ -62,8 +56,9 @@ public class Ui {
      * @param task The task that was marked as completed.
      * @param index The position of the task in the task list (1-based).
      */
-    public void showMarkedTask(Task task, int index) {
+    public String showMarkedTask(Task task, int index) {
         System.out.println("Marked task " + index + ": " + task);
+        return "Marked task " + index + ": " + task.toString();
     }
 
     /**
@@ -72,8 +67,9 @@ public class Ui {
      * @param task The task that was marked as incomplete.
      * @param index The position of the task in the task list (1-based).
      */
-    public void showUnmarkedTask(Task task, int index) {
+    public String showUnmarkedTask(Task task, int index) {
         System.out.println("Unmarked task " + index + ": " + task);
+        return "Unmarked task " + index + ": " + task.toString();
     }
 
     /**
@@ -82,9 +78,11 @@ public class Ui {
      * @param task The task that was deleted.
      * @param tasks The updated task list after deletion.
      */
-    public void showDeletedTask(Task task, TaskList tasks) {
+    public String showDeletedTask(Task task, TaskList tasks) {
         System.out.println("Removed task:\n  " + task
                 + "\n" + "\n" + tasks);
+        return "Removed task:\n  " + task
+                + "\n" + "\n" + tasks.toString();
     }
 
     /**
@@ -92,15 +90,17 @@ public class Ui {
      *
      * @param tasks The matching tasks found.
      */
-    public void showMatchingTasks(ArrayList<Task> tasks) {
+    public String showMatchingTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
             System.out.println("History is empty.");
+            return "History is empty.";
         } else {
             StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                sb.append((i + 1)).append(". ").append(tasks.get(i));
+                sb.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
             }
             System.out.println(sb);
+            return sb.toString();
         }
     }
 
@@ -114,7 +114,8 @@ public class Ui {
     /**
      * Displays the farewell message when the application closes.
      */
-    public void showExit() {
+    public String showExit() {
         System.out.println("Bye. Hope to see you again soon!");
+        return "Bye. Hope to see you again soon!";
     }
 }

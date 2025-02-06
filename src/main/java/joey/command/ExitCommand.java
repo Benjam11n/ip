@@ -9,8 +9,8 @@ import joey.ui.Ui;
  */
 public class ExitCommand implements Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showExit();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showExit();
     }
 
     @Override

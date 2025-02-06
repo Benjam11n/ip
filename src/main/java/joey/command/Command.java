@@ -18,10 +18,11 @@ public interface Command {
      * @param tasks The task list to perform operations on
      * @param ui The UI to display messages to the user
      * @param storage The storage to save any changes
+     * @return The response message to be displayed in the gui
      * @throws CommandFormatException if the command format is invalid during execution
      * @throws IOException if there is an error accessing storage
      */
-    void execute(TaskList tasks, Ui ui, Storage storage) throws CommandFormatException, IOException;
+    String execute(TaskList tasks, Ui ui, Storage storage) throws CommandFormatException, IOException;
 
     /**
      * Checks if this command should terminate the application.

@@ -3,6 +3,7 @@ package joey.command;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import joey.exception.CommandFormatException;
 import joey.storage.Storage;
 import joey.task.Deadline;
 import joey.task.Task;
@@ -28,20 +29,11 @@ public class DeadlineCommand implements Command {
         this.by = by;
     }
 
-    /**
-     * Executes the deadline command by creating and adding a new deadline to the task list.
-     * The new deadline is saved to storage and confirmation is shown to the user.
-     *
-     * @param tasks The task list to add the deadline to
-     * @param ui The UI to display the confirmation message
-     * @param storage The storage to save the updated task list
-     * @throws IOException if there is an error saving to storage
-     */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CommandFormatException, IOException {
         Task deadline = new Deadline(this.description, this.by);
         tasks.add(deadline);
         storage.save(tasks);
-        ui.showAddedTask(deadline, tasks);
+        return ui.showAddedTask(deadline, tasks);
     }
 }

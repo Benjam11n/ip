@@ -20,10 +20,10 @@ public class TodoCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         Task deadline = new Todo(this.description);
         tasks.add(deadline);
         storage.save(tasks);
-        ui.showAddedTask(deadline, tasks);
+        return ui.showAddedTask(deadline, tasks);
     }
 }

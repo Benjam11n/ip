@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import joey.Joey;
 import joey.command.Command;
 import joey.exception.CommandFormatException;
@@ -64,6 +65,11 @@ public class MainWindow extends AnchorPane {
                     DialogBox.getUserDialog(input, userImage),
                     DialogBox.getJoeyDialog(response, joeyImage)
             );
+
+            if (command.isExit()) {
+                Stage stage = (Stage) userInput.getScene().getWindow();
+                stage.close();
+            }
         } catch (CommandFormatException | IOException e) {
             String errorMsg = joey.getUi().showError(e.getMessage());
             dialogContainer.getChildren().addAll(

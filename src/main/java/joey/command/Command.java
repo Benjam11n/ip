@@ -21,7 +21,7 @@ public interface Command {
      * @throws CommandFormatException if the command format is invalid during execution
      * @throws IOException if there is an error accessing storage
      */
-    void execute(TaskList tasks, Ui ui, Storage storage) throws CommandFormatException, IOException;
+    String execute(TaskList tasks, Ui ui, Storage storage) throws CommandFormatException, IOException;
 
     /**
      * Checks if this command should terminate the application.

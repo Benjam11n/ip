@@ -38,10 +38,10 @@ public class DeadlineCommand implements Command {
      * @throws IOException if there is an error saving to storage
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         Task deadline = new Deadline(this.description, this.by);
         tasks.add(deadline);
         storage.save(tasks);
-        ui.showAddedTask(deadline, tasks);
+        return ui.showAddedTask(deadline, tasks);
     }
 }

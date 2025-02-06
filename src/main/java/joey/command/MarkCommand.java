@@ -18,11 +18,11 @@ public class MarkCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CommandFormatException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CommandFormatException {
         try {
             tasks.markTask(taskIndex);
             storage.save(tasks);
-            ui.showMarkedTask(tasks.getTask(taskIndex), taskIndex + 1); // 1-based index for UI
+            return ui.showMarkedTask(tasks.getTask(taskIndex), taskIndex + 1); // 1-based index for UI
         } catch (TaskIndexOutOfBoundsException e) {
             throw new CommandFormatException("Task " + (taskIndex + 1) + " does not exist.");
         } catch (IOException e) {

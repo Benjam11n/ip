@@ -1,0 +1,40 @@
+.label {
+    -fx-background-color: #18181b;
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-width: 1px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-text-fill: #fafafa;
+    -fx-padding: 12px;
+}
+
+.reply-label {
+    -fx-background-color: #e11d48;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+}
+
+.reply-label:hover {
+    -fx-background-color: #e11d48;
+}
+
+#displayPicture {
+    /* Existing properties */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+    -fx-rotate: 0;
+
+    /* Make image round by clipping it to a circle */
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+
+    /* Change size of image. */
+    -fx-scale-x: 0.6;
+    -fx-scale-y: 0.6;
+}
+
+.label, .reply-label {
+    -fx-padding: 12px 16px;
+    -fx-font: 14px "Segoe UI", "Arial", sans-serif;
+}

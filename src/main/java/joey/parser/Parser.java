@@ -157,13 +157,11 @@ public class Parser {
             break;
         case "mark":
             int markIndex = parseTaskIndex(commandWord, userInput);
-            return new ToggleCommand(markIndex, ToggleType.MARK);
-            parsedCommand = new TodoCommand(markIndex, ToggleType.MARK);
+            parsedCommand = new ToggleCommand(markIndex, ToggleType.MARK);
             break;
         case "unmark":
             int unmarkIndex = parseTaskIndex(commandWord, userInput);
-            return new ToggleCommand(unmarkIndex, ToggleType.UNMARK);
-            parsedCommand = new TodoCommand(unmarkIndex, ToggleType.UNMARK);
+            parsedCommand = new ToggleCommand(unmarkIndex, ToggleType.UNMARK);
             break;
         case "delete":
             int deleteIndex = parseTaskIndex(commandWord, userInput);

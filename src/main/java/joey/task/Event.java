@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import joey.enums.TaskType;
+import joey.enums.ToggleType;
 
 /**
  * Represents a task with a start and end date.
@@ -55,7 +56,7 @@ public class Event extends Task {
         if (parts.length == 5) {
             Event event = new Event(parts[1], LocalDate.parse(parts[3]), LocalDate.parse(parts[4]));
             if (Boolean.parseBoolean(parts[2])) {
-                event.markDone();
+                event.toggle(ToggleType.MARK);
             }
             return event;
         }

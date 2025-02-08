@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import joey.enums.TaskType;
+import joey.enums.ToggleType;
 
 /**
  * Represents a task with a specific deadline date.
@@ -58,7 +59,7 @@ public class Deadline extends Task {
             System.out.println(parts[3]);
             Deadline deadline = new Deadline(parts[1], LocalDate.parse(parts[3]));
             if (Boolean.parseBoolean(parts[2])) {
-                deadline.markDone();
+                deadline.toggle(ToggleType.MARK);
             }
             return deadline;
         }

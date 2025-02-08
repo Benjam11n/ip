@@ -11,9 +11,7 @@ import joey.command.DeleteCommand;
 import joey.command.EventCommand;
 import joey.command.ExitCommand;
 import joey.command.ListCommand;
-import joey.command.MarkCommand;
 import joey.command.TodoCommand;
-import joey.command.UnmarkCommand;
 import joey.exception.CommandFormatException;
 
 public class ParserTest {
@@ -39,13 +37,13 @@ public class ParserTest {
     @Test
     public void parse_validMarkCommand_returnsMarkCommand() throws CommandFormatException {
         Command command = Parser.parse("mark 1");
-        assertInstanceOf(MarkCommand.class, command);
+        assertInstanceOf(TodoCommand.class, command);
     }
 
     @Test
     public void parse_validUnmarkCommand_returnsUnmarkCommand() throws CommandFormatException {
         Command command = Parser.parse("unmark 1");
-        assertInstanceOf(UnmarkCommand.class, command);
+        assertInstanceOf(TodoCommand.class, command);
     }
 
     @Test
@@ -118,7 +116,7 @@ public class ParserTest {
     @Test
     public void parse_extraSpaces_ignoresSpaces() throws CommandFormatException {
         Command command = Parser.parse("  mark   2  ");
-        assertInstanceOf(MarkCommand.class, command);
+        assertInstanceOf(TodoCommand.class, command);
     }
 
     @Test

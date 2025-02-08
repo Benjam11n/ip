@@ -2,6 +2,7 @@ package joey.ui;
 
 import java.util.ArrayList;
 
+import joey.enums.ToggleType;
 import joey.task.Task;
 import joey.task.TaskList;
 
@@ -51,25 +52,15 @@ public class Ui {
     }
 
     /**
-     * Displays confirmation that a task has been marked as completed.
+     * Displays confirmation that a task has been marked as completed/ incomplete.
      *
-     * @param task The task that was marked as completed.
+     * @param task The task that was marked as completed/ incomplete.
      * @param index The position of the task in the task list (1-based).
      */
-    public String showMarkedTask(Task task, int index) {
-        System.out.println("Marked task " + index + ": " + task);
-        return "Marked task " + index + ": " + task.toString();
-    }
-
-    /**
-     * Displays confirmation that a task has been marked as incomplete.
-     *
-     * @param task The task that was marked as incomplete.
-     * @param index The position of the task in the task list (1-based).
-     */
-    public String showUnmarkedTask(Task task, int index) {
-        System.out.println("Unmarked task " + index + ": " + task);
-        return "Unmarked task " + index + ": " + task.toString();
+    public String showToggledTask(Task task, int index, ToggleType type) {
+        String message = type.getMessage() + " task " + index + ": " + task;
+        System.out.println(message);
+        return message;
     }
 
     /**

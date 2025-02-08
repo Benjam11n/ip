@@ -58,6 +58,10 @@ public class Parser {
      * @throws CommandFormatException if the index is missing or invalid
      */
     private static int parseTaskIndex(String commandName, String userInput) throws CommandFormatException {
+        assert commandName != null && !commandName.trim().isEmpty() : "Command name should not be null or empty.";
+        assert userInput != null && !userInput.trim().isEmpty()
+                : "User input should not be null or empty for index parsing.";
+
         String[] parts = userInput.trim().split("\\s+", 2);
 
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -65,7 +69,7 @@ public class Parser {
         }
 
         try {
-            return Integer.parseInt(parts[1]) - 1; // 0-based index
+            return Integer.parseInt(parts[1]) - 1;
         } catch (NumberFormatException e) {
             throw new CommandFormatException("'" + parts[1] + "' is not a valid task number.");
         }
@@ -88,28 +92,28 @@ public class Parser {
 
     /**
      * Parses user input into a specific Command object.
-     * Supports commands: todo, deadline, event, list, mark, unmark, delete, and bye.
-     * Command formats:
-     * - todo: todo [description]
-     * - deadline: deadline [description] /by [date]
-     * - event: event [description] /from [start-date] /to [end-date]
-     * - mark/unmark/delete: [command] [task-number]
-     * - list/bye: no additional arguments needed
+     * Supports commands: todo, deadline, event, list, mark, unmark, delete, find and bye.
      *
      * @param userInput The raw user input string
      * @return A Command object representing the parsed command
      * @throws CommandFormatException if the command format is invalid
      */
     public static Command parse(String userInput) throws CommandFormatException {
+        assert userInput != null && !userInput.trim().isEmpty() : "User input to parse should not be null or empty.";
+
         String commandWord = userInput.trim().split(" ")[0].toLowerCase();
 
+        assert !commandWord.isEmpty() : "Command word should not be null or empty after parsing.";
+
+        Command parsedCommand;
         switch (commandWord) {
         case "todo":
             String[] todoParts = userInput.trim().split("\\s+", 2);
             if (todoParts.length < 2 || todoParts[1].trim().isEmpty()) {
                 throw new CommandFormatException(TODO_ERROR_MESSAGE);
             }
-            return new TodoCommand(todoParts[1].trim());
+            parsedCommand = new TodoCommand(todoParts[1].trim());
+            break;
         case "deadline":
             String[] deadlineParts = userInput.split(" /by ", 2);
             if (deadlineParts.length < 2 || deadlineParts[0].trim().length() <= 9
@@ -119,7 +123,8 @@ public class Parser {
 
             String deadlineDescription = deadlineParts[0].substring(9).trim();
             LocalDate by = parseDate(deadlineParts[1].trim());
-            return new DeadlineCommand(deadlineDescription, by);
+            parsedCommand = new DeadlineCommand(deadlineDescription, by);
+            break;
         case "event":
             String[] eventParts = userInput.split(" /from ", 2);
             if (eventParts.length < 2) {
@@ -138,28 +143,38 @@ public class Parser {
             if (startDate.isAfter(endDate)) {
                 throw new CommandFormatException("Start date cannot be after end date.");
             }
-            return new EventCommand(eventDescription, startDate, endDate);
+            parsedCommand = new EventCommand(eventDescription, startDate, endDate);
+            break;
         case "list":
-            return new ListCommand();
+            parsedCommand = new ListCommand();
+            break;
         case "find":
             String[] findParts = userInput.trim().split("\\s+", 2);
             if (findParts.length < 2 || findParts[1].trim().isEmpty()) {
                 throw new CommandFormatException(FIND_ERROR_MESSAGE);
             }
-            return new FindCommand(findParts[1].trim());
+            parsedCommand = new FindCommand(findParts[1].trim());
+            break;
         case "mark":
             int markIndex = parseTaskIndex(commandWord, userInput);
-            return new MarkCommand(markIndex);
+            parsedCommand = new MarkCommand(markIndex);
+            break;
         case "unmark":
             int unmarkIndex = parseTaskIndex(commandWord, userInput);
-            return new UnmarkCommand(unmarkIndex);
+            parsedCommand = new UnmarkCommand(unmarkIndex);
+            break;
         case "delete":
             int deleteIndex = parseTaskIndex(commandWord, userInput);
-            return new DeleteCommand(deleteIndex);
+            parsedCommand = new DeleteCommand(deleteIndex);
+            break;
         case "bye":
-            return new ExitCommand();
+            parsedCommand = new ExitCommand();
+            break;
         default:
             throw new CommandFormatException(DEFAULT_ERROR_MESSAGE);
         }
+
+        assert parsedCommand != null : "Parse method should always return a Command or throw exception.";
+        return parsedCommand;
     }
 }

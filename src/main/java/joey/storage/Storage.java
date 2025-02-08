@@ -57,7 +57,7 @@ public class Storage {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split("\\|");
                 if (parts.length >= 2) {
-                    Task task = null;
+                    Task task;
                     switch (parts[0]) {
                     case "T":
                         task = Todo.createFromStorage(line);
@@ -71,6 +71,7 @@ public class Storage {
                     default:
                         throw new IllegalStateException("Unexpected value: " + parts[0]);
                     }
+
                     if (task != null) {
                         tasks.add(task);
                     }

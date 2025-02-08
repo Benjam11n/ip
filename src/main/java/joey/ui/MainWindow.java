@@ -14,6 +14,8 @@ import joey.Joey;
 import joey.command.Command;
 import joey.exception.CommandFormatException;
 import joey.parser.Parser;
+import joey.storage.Storage;
+import joey.task.TaskList;
 
 /**
  * Controller for the main GUI.
@@ -58,7 +60,16 @@ public class MainWindow extends AnchorPane {
         try {
             // Parse and execute the command
             Command command = Parser.parse(input);
-            String response = command.execute(joey.getTasks(), joey.getUi(), joey.getStorage());
+
+            TaskList tasks = joey.getTasks();
+            Ui ui = joey.getUi();
+            Storage storage = joey.getStorage();
+
+            assert tasks != null : "TaskList cannot be null.";
+            assert ui != null : "Ui cannot be null.";
+            assert storage != null : "Storage cannot be null.";
+
+            String response = command.execute(tasks, ui, storage);
 
             // Add the dialog boxes
             dialogContainer.getChildren().addAll(

@@ -18,7 +18,6 @@ public class Main extends Application {
         try {
             Joey joey = new Joey();
 
-            // Load tasks once at startup
             joey.loadTasks();
 
             // Load and set up the GUI

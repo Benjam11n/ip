@@ -1,6 +1,7 @@
 package joey.task;
 
 import joey.enums.TaskType;
+import joey.enums.ToggleType;
 
 /**
  * Represents a basic todo task without a specific date.
@@ -41,7 +42,7 @@ public class Todo extends Task {
         if (parts.length == 3) {
             Todo todo = new Todo(parts[1]);
             if (Boolean.parseBoolean(parts[2])) {
-                todo.markDone();
+                todo.toggle(ToggleType.MARK);
             }
             return todo;
         }

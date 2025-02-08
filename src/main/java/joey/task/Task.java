@@ -1,5 +1,7 @@
 package joey.task;
 
+import joey.enums.ToggleType;
+
 /**
  * Represents an abstract base class for all types of tasks in the application.
  * Provides common functionality for task management including completion status
@@ -21,17 +23,16 @@ public abstract class Task {
     }
 
     /**
-     * Marks the task as completed.
+     * Marks the task as completed/ incomplete.
      */
-    public void markDone() {
-        this.isDone = true;
-    }
+    public void toggle(ToggleType type) {
+        if (type == ToggleType.MARK) {
+            this.isDone = true;
+        }
 
-    /**
-     * Marks the task as not completed.
-     */
-    public void markUndone() {
-        this.isDone = false;
+        if (type == ToggleType.UNMARK) {
+            this.isDone = false;
+        }
     }
 
     /**

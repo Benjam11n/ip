@@ -2,6 +2,7 @@ package joey.task;
 
 import java.util.ArrayList;
 
+import joey.enums.ToggleType;
 import joey.exception.TaskIndexOutOfBoundsException;
 
 /**
@@ -44,28 +45,15 @@ public class TaskList {
     }
 
     /**
-     * Marks a task as completed at the specified index.
+     * Marks a task as completed/ incomplete at the specified index.
      *
      * @param index The index of the task to mark as completed
+     * @param type The type of command (UNMARK / MARK)
      * @throws TaskIndexOutOfBoundsException if the index is out of range
      */
-    public void markTask(int index) throws TaskIndexOutOfBoundsException {
+    public void toggleTask(int index, ToggleType type) throws TaskIndexOutOfBoundsException {
         if (index >= 0 && index < this.tasks.size()) {
-            this.tasks.get(index).markDone();
-        } else {
-            throw new TaskIndexOutOfBoundsException();
-        }
-    }
-
-    /**
-     * Marks a task as not completed at the specified index.
-     *
-     * @param index The index of the task to mark as not completed
-     * @throws TaskIndexOutOfBoundsException if the index is out of range
-     */
-    public void unMarkTask(int index) throws TaskIndexOutOfBoundsException {
-        if (index >= 0 && index < this.tasks.size()) {
-            this.tasks.get(index).markUndone();
+            this.tasks.get(index).toggle(type);
         } else {
             throw new TaskIndexOutOfBoundsException();
         }

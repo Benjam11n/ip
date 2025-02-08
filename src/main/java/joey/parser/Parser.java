@@ -10,9 +10,9 @@ import joey.command.EventCommand;
 import joey.command.ExitCommand;
 import joey.command.FindCommand;
 import joey.command.ListCommand;
-import joey.command.MarkCommand;
 import joey.command.TodoCommand;
-import joey.command.UnmarkCommand;
+import joey.command.ToggleCommand;
+import joey.enums.ToggleType;
 import joey.exception.CommandFormatException;
 
 /**
@@ -149,10 +149,10 @@ public class Parser {
             return new FindCommand(findParts[1].trim());
         case "mark":
             int markIndex = parseTaskIndex(commandWord, userInput);
-            return new MarkCommand(markIndex);
+            return new ToggleCommand(markIndex, ToggleType.MARK);
         case "unmark":
             int unmarkIndex = parseTaskIndex(commandWord, userInput);
-            return new UnmarkCommand(unmarkIndex);
+            return new ToggleCommand(unmarkIndex, ToggleType.UNMARK);
         case "delete":
             int deleteIndex = parseTaskIndex(commandWord, userInput);
             return new DeleteCommand(deleteIndex);

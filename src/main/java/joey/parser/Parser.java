@@ -99,7 +99,9 @@ public class Parser {
      * @throws CommandFormatException if the command format is invalid
      */
     public static Command parse(String userInput) throws CommandFormatException {
-        assert userInput != null && !userInput.trim().isEmpty() : "User input to parse should not be null or empty.";
+        if ((userInput == null) || (userInput.trim().isEmpty())) {
+            throw new CommandFormatException("User input should not be null or empty.");
+        }
 
         String commandWord = userInput.trim().split(" ")[0].toLowerCase();
 

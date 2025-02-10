@@ -2,6 +2,9 @@ package joey.command;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import joey.storage.Storage;
 import joey.task.Event;
@@ -14,6 +17,7 @@ import joey.ui.Ui;
  * This command adds the event to the task list and persists it to storage.
  */
 public class EventCommand implements Command {
+    private static final Set<String> IDENTIFIERS = new HashSet<>(Arrays.asList("event", "e"));
     private String description;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -29,6 +33,17 @@ public class EventCommand implements Command {
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    /**
+     * Checks if the given command word matches any of the event command identifiers.
+     * This includes aliases like "event", "e".
+     *
+     * @param commandWord The command word to check
+     * @return true if the command word matches any event command identifier, false otherwise
+     */
+    public static boolean matches(String commandWord) {
+        return IDENTIFIERS.contains(commandWord.toLowerCase());
     }
 
     /**

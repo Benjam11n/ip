@@ -108,15 +108,15 @@ public class Parser {
         assert !commandWord.isEmpty() : "Command word should not be null or empty after parsing.";
 
         Command parsedCommand;
-        switch (commandWord) {
-        case "todo":
+
+        if (TodoCommand.matches(commandWord)) {
             String[] todoParts = userInput.trim().split("\\s+", 2);
             if (todoParts.length < 2 || todoParts[1].trim().isEmpty()) {
                 throw new CommandFormatException(TODO_ERROR_MESSAGE);
             }
+
             parsedCommand = new TodoCommand(todoParts[1].trim());
-            break;
-        case "deadline":
+        } else if (DeadlineCommand.matches(commandWord)) {
             String[] deadlineParts = userInput.split(" /by ", 2);
             if (deadlineParts.length < 2 || deadlineParts[0].trim().length() <= 9
                     || deadlineParts[1].trim().isEmpty()) {
@@ -125,9 +125,9 @@ public class Parser {
 
             String deadlineDescription = deadlineParts[0].substring(9).trim();
             LocalDate by = parseDate(deadlineParts[1].trim());
+
             parsedCommand = new DeadlineCommand(deadlineDescription, by);
-            break;
-        case "event":
+        } else if (EventCommand.matches(commandWord)) {
             String[] eventParts = userInput.split(" /from ", 2);
             if (eventParts.length < 2) {
                 throw new CommandFormatException(EVENT_ERROR_MESSAGE);
@@ -145,34 +145,28 @@ public class Parser {
             if (startDate.isAfter(endDate)) {
                 throw new CommandFormatException("Start date cannot be after end date.");
             }
+
             parsedCommand = new EventCommand(eventDescription, startDate, endDate);
-            break;
-        case "list":
+        } else if (ListCommand.matches(commandWord)) {
             parsedCommand = new ListCommand();
-            break;
-        case "find":
+        } else if (FindCommand.matches(commandWord)) {
             String[] findParts = userInput.trim().split("\\s+", 2);
             if (findParts.length < 2 || findParts[1].trim().isEmpty()) {
                 throw new CommandFormatException(FIND_ERROR_MESSAGE);
             }
             parsedCommand = new FindCommand(findParts[1].trim());
-            break;
-        case "mark":
+        } else if (ToggleCommand.isMarkCommand(commandWord)) {
             int markIndex = parseTaskIndex(commandWord, userInput);
             parsedCommand = new ToggleCommand(markIndex, ToggleType.MARK);
-            break;
-        case "unmark":
+        } else if (ToggleCommand.isUnmarkCommand(commandWord)) {
             int unmarkIndex = parseTaskIndex(commandWord, userInput);
             parsedCommand = new ToggleCommand(unmarkIndex, ToggleType.UNMARK);
-            break;
-        case "delete":
+        } else if (DeleteCommand.matches(commandWord)) {
             int deleteIndex = parseTaskIndex(commandWord, userInput);
             parsedCommand = new DeleteCommand(deleteIndex);
-            break;
-        case "bye":
+        } else if (ExitCommand.matches(commandWord)) {
             parsedCommand = new ExitCommand();
-            break;
-        default:
+        } else {
             throw new CommandFormatException(DEFAULT_ERROR_MESSAGE);
         }
 

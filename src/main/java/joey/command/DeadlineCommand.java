@@ -2,6 +2,9 @@ package joey.command;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import joey.exception.CommandFormatException;
 import joey.storage.Storage;
@@ -15,6 +18,7 @@ import joey.ui.Ui;
  * This command adds the deadline to the task list and persists it to storage.
  */
 public class DeadlineCommand implements Command {
+    private static final Set<String> IDENTIFIERS = new HashSet<>(Arrays.asList("deadline", "d"));
     private String description;
     private LocalDate by;
 
@@ -27,6 +31,17 @@ public class DeadlineCommand implements Command {
     public DeadlineCommand(String description, LocalDate by) {
         this.description = description;
         this.by = by;
+    }
+
+    /**
+     * Checks if the given command word matches any of the deadline command identifiers.
+     * This includes aliases like "deadline", "d".
+     *
+     * @param commandWord The command word to check
+     * @return true if the command word matches any deadline command identifier, false otherwise
+     */
+    public static boolean matches(String commandWord) {
+        return IDENTIFIERS.contains(commandWord.toLowerCase());
     }
 
     @Override

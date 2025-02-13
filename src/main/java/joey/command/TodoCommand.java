@@ -32,6 +32,7 @@ public class TodoCommand implements Command {
      *
      * @param commandArgs The user input
      * @return TodoCommand after parsing the relevant details
+     * @throws CommandFormatException if the user input is not in the specified format
      */
     public static TodoCommand parse(String commandArgs) throws CommandFormatException {
         if (commandArgs.trim().isEmpty()) {

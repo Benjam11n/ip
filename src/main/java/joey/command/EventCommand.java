@@ -45,6 +45,7 @@ public class EventCommand implements Command {
      *
      * @param commandArgs The user input
      * @return EventCommand after parsing the relevant details
+     * @throws CommandFormatException if the user input is not in the specified format
      */
     public static EventCommand parse(String commandArgs) throws CommandFormatException {
         String[] eventParts = commandArgs.split(" /from ", 2);

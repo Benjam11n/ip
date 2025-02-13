@@ -42,6 +42,7 @@ public class DeadlineCommand implements Command {
      *
      * @param commandArgs The user input
      * @return DeadlineCommand after parsing the relevant details
+     * @throws CommandFormatException if the user input is not in the specified format
      */
     public static DeadlineCommand parse(String commandArgs) throws CommandFormatException {
         String[] deadlineParts = commandArgs.split(" /by ", 2);

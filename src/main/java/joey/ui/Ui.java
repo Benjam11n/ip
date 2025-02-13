@@ -17,9 +17,6 @@ public class Ui {
      * Displays the welcome message when the application starts.
      */
     public String showWelcome() {
-        this.showLine();
-        System.out.println("Hello! I'm Joey!\nWhat can I do for you?");
-        this.showLine();
         return "Hello! I'm Joey!\nWhat can I do for you?";
     }
 
@@ -59,7 +56,6 @@ public class Ui {
      */
     public String showToggledTask(Task task, int index, ToggleType type) {
         String message = type.getMessage() + " task " + index + ": " + task;
-        System.out.println(message);
         return message;
     }
 
@@ -70,8 +66,6 @@ public class Ui {
      * @param tasks The updated task list after deletion.
      */
     public String showDeletedTask(Task task, TaskList tasks) {
-        System.out.println("Removed task:\n  " + task
-                + "\n" + "\n" + tasks);
         return "Removed task:\n  " + task
                 + "\n" + "\n" + tasks.toString();
     }
@@ -83,30 +77,20 @@ public class Ui {
      */
     public String showMatchingTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("History is empty.");
             return "History is empty.";
         } else {
             StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
                 sb.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
             }
-            System.out.println(sb);
             return sb.toString();
         }
-    }
-
-    /**
-     * Displays a separator line for visual clarity in the console output.
-     */
-    public void showLine() {
-        System.out.println("____________________________________________________________\n");
     }
 
     /**
      * Displays the farewell message when the application closes.
      */
     public String showExit() {
-        System.out.println("Bye. Hope to see you again soon!");
         return "Bye. Hope to see you again soon!";
     }
 }

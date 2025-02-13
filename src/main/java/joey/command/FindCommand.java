@@ -30,6 +30,7 @@ public class FindCommand implements Command {
      *
      * @param commandArgs The user input
      * @return FindCommand after parsing the query
+     * @throws CommandFormatException if the user input is not in the specified format
      */
     public static FindCommand parse(String commandArgs) throws CommandFormatException {
         String[] findParts = commandArgs.trim().split("\\s+", 2);

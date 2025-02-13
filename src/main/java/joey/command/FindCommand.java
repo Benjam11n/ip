@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import joey.exception.CommandFormatException;
 import joey.storage.Storage;
 import joey.task.Task;
 import joey.task.TaskList;
@@ -14,11 +15,28 @@ import joey.ui.Ui;
  * Represents a command to find a task in the task list.
  */
 public class FindCommand implements Command {
+    private static final String FIND_ERROR_MESSAGE = """
+            Please specify a description after 'find'
+            For example: 'find book'""";
     private static final Set<String> IDENTIFIERS = new HashSet<>(Arrays.asList("find", "f"));
     private String query;
 
     public FindCommand(String query) {
         this.query = query;
+    }
+
+    /**
+     * Parses the user input for the query to search by
+     *
+     * @param commandArgs The user input
+     * @return FindCommand after parsing the query
+     */
+    public static FindCommand parse(String commandArgs) throws CommandFormatException {
+        String[] findParts = commandArgs.trim().split("\\s+", 2);
+        if (findParts.length < 2 || findParts[1].trim().isEmpty()) {
+            throw new CommandFormatException(FIND_ERROR_MESSAGE);
+        }
+        return new FindCommand(findParts[1].trim());
     }
 
     /**

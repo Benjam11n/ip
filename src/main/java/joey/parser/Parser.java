@@ -21,18 +21,6 @@ import joey.exception.CommandFormatException;
  * converting them into executable Command objects.
  */
 public class Parser {
-    private static final String TODO_ERROR_MESSAGE = """
-            Please specify a task description after 'todo'.
-            For example: 'todo borrow book'""";
-    private static final String DEADLINE_ERROR_MESSAGE = """
-            Please specify a task description and a deadline date after 'deadline'.
-            For example: 'deadline return book /by 2025-02-01'""";
-    private static final String EVENT_ERROR_MESSAGE = """
-            Please specify a task description, start date, and end date after 'event'
-            For example: 'event concert /from 2025-02-01 /to 2025-02-02'""";
-    private static final String FIND_ERROR_MESSAGE = """
-            Please specify a description after 'find'
-            For example: 'find book'""";
     private static final String INVALID_DATE_ERROR_MESSAGE =
             "Invalid date format. Use YYYY-MM-DD.";
     private static final String DEFAULT_ERROR_MESSAGE = """
@@ -82,7 +70,7 @@ public class Parser {
      * @return The parsed LocalDate
      * @throws CommandFormatException if the date format is invalid
      */
-    private static LocalDate parseDate(String dateStr) throws CommandFormatException {
+    public static LocalDate parseDate(String dateStr) throws CommandFormatException {
         try {
             return LocalDate.parse(dateStr);
         } catch (DateTimeParseException e) {
@@ -104,57 +92,22 @@ public class Parser {
         }
 
         String commandWord = userInput.trim().split(" ")[0].toLowerCase();
+        String commandArgs = userInput.substring(commandWord.length()).trim();
 
         assert !commandWord.isEmpty() : "Command word should not be null or empty after parsing.";
 
         Command parsedCommand;
 
         if (TodoCommand.matches(commandWord)) {
-            String[] todoParts = userInput.trim().split("\\s+", 2);
-            if (todoParts.length < 2 || todoParts[1].trim().isEmpty()) {
-                throw new CommandFormatException(TODO_ERROR_MESSAGE);
-            }
-
-            parsedCommand = new TodoCommand(todoParts[1].trim());
+            parsedCommand = TodoCommand.parse(commandArgs);
         } else if (DeadlineCommand.matches(commandWord)) {
-            String[] deadlineParts = userInput.split(" /by ", 2);
-            if (deadlineParts.length < 2 || deadlineParts[0].trim().length() <= 9
-                    || deadlineParts[1].trim().isEmpty()) {
-                throw new CommandFormatException(DEADLINE_ERROR_MESSAGE);
-            }
-
-            String deadlineDescription = deadlineParts[0].substring(9).trim();
-            LocalDate by = parseDate(deadlineParts[1].trim());
-
-            parsedCommand = new DeadlineCommand(deadlineDescription, by);
+            parsedCommand = DeadlineCommand.parse(commandArgs);
         } else if (EventCommand.matches(commandWord)) {
-            String[] eventParts = userInput.split(" /from ", 2);
-            if (eventParts.length < 2) {
-                throw new CommandFormatException(EVENT_ERROR_MESSAGE);
-            }
-
-            String[] eventDetails = eventParts[1].split(" /to ", 2);
-            if (eventDetails.length < 2) {
-                throw new CommandFormatException(EVENT_ERROR_MESSAGE);
-            }
-
-            String eventDescription = eventParts[0].trim();
-            LocalDate startDate = parseDate(eventDetails[0].trim());
-            LocalDate endDate = parseDate(eventDetails[1].trim());
-
-            if (startDate.isAfter(endDate)) {
-                throw new CommandFormatException("Start date cannot be after end date.");
-            }
-
-            parsedCommand = new EventCommand(eventDescription, startDate, endDate);
+            parsedCommand = EventCommand.parse(commandArgs);
         } else if (ListCommand.matches(commandWord)) {
             parsedCommand = new ListCommand();
         } else if (FindCommand.matches(commandWord)) {
-            String[] findParts = userInput.trim().split("\\s+", 2);
-            if (findParts.length < 2 || findParts[1].trim().isEmpty()) {
-                throw new CommandFormatException(FIND_ERROR_MESSAGE);
-            }
-            parsedCommand = new FindCommand(findParts[1].trim());
+            parsedCommand = FindCommand.parse(commandArgs);
         } else if (ToggleCommand.isMarkCommand(commandWord)) {
             int markIndex = parseTaskIndex(commandWord, userInput);
             parsedCommand = new ToggleCommand(markIndex, ToggleType.MARK);

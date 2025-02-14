@@ -50,6 +50,13 @@ public class DialogBox extends HBox {
     }
 
     /**
+     * Returns the dialog
+     */
+    public Label getLabel() {
+        return this.dialog;
+    }
+
+    /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
     private void flip() {

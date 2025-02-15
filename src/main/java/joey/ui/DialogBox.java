@@ -35,7 +35,7 @@ public class DialogBox extends HBox {
             displayPicture.setImage(img);
 
             // Make the image view circular
-            double radius = 49.5; // Half of your 99.0 fitHeight/fitWidth
+            double radius = 49.5;
             Circle clip = new Circle(radius);
             clip.setCenterX(radius);
             clip.setCenterY(radius);

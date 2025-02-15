@@ -121,6 +121,93 @@ public class ParserTest {
     }
 
     @Test
+    public void parse_todoWithMultipleWords_returnsTodoCommand() throws CommandFormatException {
+        Command command = Parser.parse("todo finish the project presentation slides");
+        assertInstanceOf(TodoCommand.class, command);
+    }
+
+    @Test
+    public void parse_deadlineWithSpecialCharacters_returnsDeadlineCommand() throws CommandFormatException {
+        Command command = Parser.parse("deadline review PR #123 & update docs /by 2025-01-01");
+        assertInstanceOf(DeadlineCommand.class, command);
+    }
+
+    @Test
+    public void parse_todoWithEmoji_returnsTodoCommand() throws CommandFormatException {
+        Command command = Parser.parse("todo call mom ❤️");
+        assertInstanceOf(TodoCommand.class, command);
+    }
+
+    @Test
+    public void parse_markInvalidInteger_throwsException() {
+        assertThrows(CommandFormatException.class, () -> Parser.parse("mark test"));
+    }
+
+    @Test
+    public void parse_deadlineWithoutByKeyword_throwsException() {
+        assertThrows(CommandFormatException.class, () ->
+                Parser.parse("deadline submit report 2025-01-01"));
+    }
+
+    @Test
+    public void parse_eventWithoutFromToKeywords_throwsException() {
+        assertThrows(CommandFormatException.class, () ->
+                Parser.parse("event team meeting 2025-01-01 2025-01-02"));
+    }
+
+    @Test
+    public void parse_eventWithMissingToDate_throwsException() {
+        assertThrows(CommandFormatException.class, () ->
+                Parser.parse("event team meeting /from 2025-01-01"));
+    }
+
+    @Test
+    public void parse_eventWithMissingFromDate_throwsException() {
+        assertThrows(CommandFormatException.class, () ->
+                Parser.parse("event team meeting /to 2025-01-02"));
+    }
+
+    @Test
+    public void parse_deadlineWithInvalidTimeFormat_throwsException() {
+        assertThrows(CommandFormatException.class, () ->
+                Parser.parse("deadline submit report /by 2025-01-01 25:00"));
+    }
+
+    @Test
+    public void parse_eventWithInvalidTimeFormat_throwsException() {
+        assertThrows(CommandFormatException.class, () ->
+                Parser.parse("event meeting /from 2025-01-01 9:60 /to 2025-01-01 10:00"));
+    }
+
+    @Test
+    public void parse_todoWithOnlyWhitespace_throwsException() {
+        assertThrows(CommandFormatException.class, () -> Parser.parse("todo     "));
+    }
+
+    @Test
+    public void parse_multipleConsecutiveSpaces_returnsTodoCommand() throws CommandFormatException {
+        Command command = Parser.parse("todo    write     unit    tests");
+        assertInstanceOf(TodoCommand.class, command);
+    }
+
+    @Test
+    public void parse_todoWithLeadingNumbers_returnsTodoCommand() throws CommandFormatException {
+        Command command = Parser.parse("todo 1. First task 2. Second task");
+        assertInstanceOf(TodoCommand.class, command);
+    }
+
+    @Test
+    public void parse_deadlineWithTimezone_throwsException() {
+        assertThrows(CommandFormatException.class, () ->
+                Parser.parse("deadline meeting /by 2025-01-01 14:30 GMT+8"));
+    }
+
+    @Test
+    public void parse_markWithFloatingPointIndex_throwsException() {
+        assertThrows(CommandFormatException.class, () -> Parser.parse("mark 1.5"));
+    }
+
+    @Test
     public void parse_unexpectedCapitalization_ignoresCapitalization() throws CommandFormatException {
         Command command = Parser.parse("  mARk   2  ");
         assertInstanceOf(ToggleCommand.class, command);

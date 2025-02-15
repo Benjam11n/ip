@@ -33,11 +33,10 @@ public class FindCommand implements Command {
      * @throws CommandFormatException if the user input is not in the specified format
      */
     public static FindCommand parse(String commandArgs) throws CommandFormatException {
-        String[] findParts = commandArgs.trim().split("\\s+", 2);
-        if (findParts.length < 2 || findParts[1].trim().isEmpty()) {
+        if (commandArgs.isEmpty()) {
             throw new CommandFormatException(FIND_ERROR_MESSAGE);
         }
-        return new FindCommand(findParts[1].trim());
+        return new FindCommand(commandArgs);
     }
 
     /**

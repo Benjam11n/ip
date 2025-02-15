@@ -2,7 +2,7 @@
 
 Joey is a desktop task management application for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Joey can help you manage your tasks faster than traditional GUI apps.
 
-![Joey UI](Ui.png)
+<img src="Ui.png" width="500" alt="Joey UI"/>
 
 ## Adding a Todo Task
 

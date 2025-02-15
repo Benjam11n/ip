@@ -17,7 +17,8 @@ public class Ui {
      * Displays the welcome message when the application starts.
      */
     public String showWelcome() {
-        return "Hello! I'm Joey!\nWhat can I do for you?";
+        return "Hey there! 👋 I'm Joey, your friendly task assistant!\n"
+                + "Ready to get things done? Just tell me what's up!";
     }
 
     /**
@@ -27,7 +28,11 @@ public class Ui {
      * @param tasks The updated task list containing all tasks.
      */
     public String showAddedTask(Task task, TaskList tasks) {
-        return "Added: " + task + "\n" + "\n" + tasks;
+        return "Alright! I've added this task for ya:\n"
+                + "  -> " + task + "\n"
+                + "\n"
+                + "Current tasks in your list:\n"
+                + tasks; // TaskList's toString() should handle the list display nicely
     }
 
     /**
@@ -36,7 +41,18 @@ public class Ui {
      * @param tasks The task list to be displayed.
      */
     public String showTaskList(TaskList tasks) {
-        return tasks.toString();
+        if (tasks.isEmpty()) {
+            return "Your task list is currently empty! Time to add some tasks, maybe? 😉";
+        } else {
+            StringBuilder sb = new StringBuilder("History:\n");
+            String[] taskStrings = tasks.toString().split("\n");
+            for (int i = 0; i < taskStrings.length; i++) {
+                sb.append((i + 1)).append(". ").append(taskStrings[i]).append("\n");
+            }
+            sb.append("\n");
+            sb.append("You have ").append(tasks.getSize()).append(" tasks in the list.");
+            return sb.toString();
+        }
     }
 
     /**
@@ -45,7 +61,9 @@ public class Ui {
      * @param message The error message to be displayed to the user.
      */
     public String showError(String message) {
-        return "Error: " + message;
+        return "Oops! 😬 Something went wrong...\n"
+                + ">>> " + message + "\n"
+                + "Let's try that again, shall we?";
     }
 
     /**
@@ -55,7 +73,10 @@ public class Ui {
      * @param index The position of the task in the task list (1-based).
      */
     public String showToggledTask(Task task, int index, ToggleType type) {
-        String message = type.getMessage() + " task " + index + ": " + task;
+        String message = type.getMessage() + " task number " + index + "!\n"
+                + "  -> " + task + "\n"
+                + (type == ToggleType.MARK ? "Awesome job completing it! 🎉"
+                : "Okay, I've marked it as not done. Let's get it done soon! 💪");
         return message;
     }
 
@@ -66,8 +87,11 @@ public class Ui {
      * @param tasks The updated task list after deletion.
      */
     public String showDeletedTask(Task task, TaskList tasks) {
-        return "Removed task:\n  " + task
-                + "\n" + "\n" + tasks.toString();
+        return "Poof! Task removed! 💨\n"
+                + "  ->  " + task + "\n"
+                + "\n"
+                + "Updated task list:\n"
+                + tasks.toString();
     }
 
     /**
@@ -77,11 +101,11 @@ public class Ui {
      */
     public String showMatchingTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            return "History is empty.";
+            return "Hmm, no tasks match your search.  Maybe try a different keyword? 🤔";
         } else {
-            StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
+            StringBuilder sb = new StringBuilder("Ta-da! ✨ Here are the tasks matching your search:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                sb.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
+                sb.append("  ").append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
             }
             return sb.toString();
         }
@@ -91,6 +115,6 @@ public class Ui {
      * Displays the farewell message when the application closes.
      */
     public String showExit() {
-        return "Bye. Hope to see you again soon!";
+        return "Alright, signing off! 👋  Catch you again soon!  Remember to stay productive! 😉";
     }
 }

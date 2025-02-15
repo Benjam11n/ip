@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -31,8 +32,8 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Joey joey;
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-    private Image joeyImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    private Image joeyImage = new Image(this.getClass().getResourceAsStream("/images/Joey.png"));
 
     @FXML
     public void initialize() {
@@ -83,9 +84,16 @@ public class MainWindow extends AnchorPane {
             }
         } catch (CommandFormatException | IOException e) {
             String errorMsg = joey.getUi().showError(e.getMessage());
+            DialogBox errorDialog = DialogBox.getJoeyDialog(errorMsg, joeyImage);
+
+            Label errorLabel = errorDialog.getLabel();
+            if (errorLabel != null) {
+                errorLabel.getStyleClass().add("error-label");
+            }
+
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getJoeyDialog(errorMsg, joeyImage)
+                    errorDialog
             );
         }
         userInput.clear();

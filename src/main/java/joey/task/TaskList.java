@@ -94,17 +94,33 @@ public class TaskList {
         return matchingTasks;
     }
 
+    /**
+     * Checks if the task list is empty
+     *
+     * @return The boolean stating whether the task list is empty
+     */
+    public boolean isEmpty() {
+        return this.tasks.isEmpty();
+    }
+
+    /**
+     * Returns the size of the tasklist
+     *
+     * @return The size of the tasklist
+     */
+    public int getSize() {
+        return this.tasks.size();
+    }
+
     @Override
     public String toString() {
         if (this.tasks.isEmpty()) {
-            return "History is empty.";
+            return "";
         } else {
-            StringBuilder sb = new StringBuilder("History:\n");
-            for (int i = 0; i < this.tasks.size(); i++) {
-                sb.append((i + 1)).append(". ").append(this.tasks.get(i)).append("\n");
+            StringBuilder sb = new StringBuilder();
+            for (Task task : this.tasks) {
+                sb.append(task).append("\n");
             }
-            sb.append("\n");
-            sb.append("You have ").append(this.tasks.size()).append(" tasks in the list.");
             return sb.toString();
         }
     }

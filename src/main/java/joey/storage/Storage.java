@@ -22,7 +22,7 @@ import joey.task.Todo;
  */
 public class Storage {
     private static final Path DATA_DIR = Paths.get("data");
-    private static final Path DATA_FILE = DATA_DIR.resolve("duke.txt");
+    private static final Path DATA_FILE = DATA_DIR.resolve("joey.txt");
 
     /**
      * Creates the data directory if it doesn't already exist.

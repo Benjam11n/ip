@@ -1,5 +1,10 @@
 .root {
     main-color: #292524;
+    primary: #e11d48;
+    accent: #be123c;
+    foreground: #a8a29e;
+    warning: #7f1d1d;
+    accent-warning: #450a0a;
     -fx-background-color: main-color;
 }
 
@@ -13,7 +18,7 @@
 }
 
 .button {
-    -fx-background-color: #f43f5e;
+    -fx-background-color: primary;
     -fx-font: bold 14px "Arial";
     -fx-text-fill: white;
     -fx-background-radius: 1em;
@@ -21,11 +26,11 @@
 }
 
 .button:hover {
-    -fx-background-color: #e11d48;
+    -fx-background-color: accent;
 }
 
 .button:pressed {
-    -fx-background-color: #f43f5e;
+    -fx-background-color: primary;
 }
 
 .scroll-pane,
@@ -39,7 +44,7 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #a8a29e;
+    -fx-background-color: foreground;
     -fx-background-radius: 1em;
 }
 

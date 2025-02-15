@@ -1,22 +1,36 @@
-# Joey project template
+# Joey - Task Management Made Simple
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Joey_. Given below are instructions on how to use it.
+Joey is a desktop task management application that helps you stay organized with a simple command-line interface.
 
-## Setting up in Intellij
+## Features
+* Create different types of tasks:
+   - ToDos: Simple tasks without dates
+   - Deadlines: Tasks with due dates
+   - Events: Tasks with start and end dates
+* Mark tasks as complete/incomplete
+* List all your tasks
+* Find tasks by keywords
+* Automatic saving of tasks for persistence
+* Simple command-based interface
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## Quick Start Guide
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/joey/Joey.java` file, right-click it, and choose `Run Joey.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+### Option 1: Download and Run
+1. Download the latest release of Joey.jar from the [releases page](https://github.com/Benjam11n/ip/releases/)
+2. Ensure you have JDK 17 or later installed
+3. Double-click the JAR file or run from command line:
    ```
-   Hello! I'm Joey!
-   What can I do for you?
+   java -jar Joey.jar
    ```
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+### Option 2: Build from Source
+If you prefer to build from source:
+
+1. Open Intellij
+2. Click `Open` and select the project directory
+3. Configure the project to use JDK 17 (Project Structure > Project > SDK)
+4. Set Project language level to `SDK default`
+5. Run `src/main/java/joey/Main.java`
+
+## User Guide
+The user guide can be found [here](https://benjam11n.github.io/ip/).

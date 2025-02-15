@@ -46,11 +46,10 @@ public class DeadlineCommand implements Command {
      */
     public static DeadlineCommand parse(String commandArgs) throws CommandFormatException {
         String[] deadlineParts = commandArgs.split(" /by ", 2);
-        if (deadlineParts.length < 2 || deadlineParts[0].trim().length() <= 9
-                || deadlineParts[1].trim().isEmpty()) {
+        if (deadlineParts.length < 2 || deadlineParts[1].trim().isEmpty()) {
             throw new CommandFormatException(DEADLINE_ERROR_MESSAGE);
         }
-        String deadlineDescription = deadlineParts[0].substring(9).trim();
+        String deadlineDescription = deadlineParts[0].trim();
         LocalDate by = Parser.parseDate(deadlineParts[1].trim());
 
         return new DeadlineCommand(deadlineDescription, by);

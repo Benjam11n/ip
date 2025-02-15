@@ -17,7 +17,7 @@ bin/
 *.class
 
 # Ignore data file
-/data/joey.txt
+/data/*
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

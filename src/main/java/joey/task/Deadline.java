@@ -5,20 +5,14 @@ import java.time.format.DateTimeFormatter;
 
 import joey.enums.TaskType;
 import joey.enums.ToggleType;
+import joey.storage.Storage;
 
 /**
  * Represents a task with a specific deadline date.
  * Extends the base Task class with deadline-specific functionality.
  */
 public class Deadline extends Task {
-    /**
-     * The deadline date for this task.
-     */
     private LocalDate by;
-
-    /**
-     * The type of this task (DEADLINE).
-     */
     private final TaskType type;
 
     /**
@@ -43,7 +37,7 @@ public class Deadline extends Task {
 
     @Override
     public String getStorageFormat() {
-        return String.format("D|%s|%b|%s", getDescription(), isDone(), this.by);
+        return String.format("%s|%s|%b|%s", TaskType.DEADLINE, getDescription(), isDone(), this.by);
     }
 
     /**
@@ -55,14 +49,23 @@ public class Deadline extends Task {
      */
     public static Task createFromStorage(String data) {
         String[] parts = data.split("\\|");
-        if (parts.length == 4) {
-            System.out.println(parts[3]);
-            Deadline deadline = new Deadline(parts[1], LocalDate.parse(parts[3]));
-            if (Boolean.parseBoolean(parts[2])) {
-                deadline.toggle(ToggleType.MARK);
-            }
-            return deadline;
+        if (!(parts.length == Storage.DEADLINE_PARTS_LENGTH)) {
+            return null;
         }
-        return null;
+
+        Deadline deadline = createDeadlineFromParts(parts);
+        applyCompletionStatus(deadline, parts[Storage.STATUS_INDEX]);
+        return deadline;
+    }
+
+    private static Deadline createDeadlineFromParts(String[] parts) {
+        return new Deadline(parts[Storage.DESCRIPTION_INDEX],
+                LocalDate.parse(parts[Storage.DEADLINE_DATE_INDEX]));
+    }
+
+    private static void applyCompletionStatus(Deadline deadline, String status) {
+        if (Boolean.parseBoolean(status)) {
+            deadline.toggle(ToggleType.MARK);
+        }
     }
 }

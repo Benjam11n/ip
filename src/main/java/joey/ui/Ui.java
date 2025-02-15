@@ -32,7 +32,7 @@ public class Ui {
                 + "  -> " + task + "\n"
                 + "\n"
                 + "Current tasks in your list:\n"
-                + tasks; // TaskList's toString() should handle the list display nicely
+                + tasks;
     }
 
     /**
@@ -43,16 +43,16 @@ public class Ui {
     public String showTaskList(TaskList tasks) {
         if (tasks.isEmpty()) {
             return "Your task list is currently empty! Time to add some tasks, maybe? 😉";
-        } else {
-            StringBuilder sb = new StringBuilder("History:\n");
-            String[] taskStrings = tasks.toString().split("\n");
-            for (int i = 0; i < taskStrings.length; i++) {
-                sb.append((i + 1)).append(". ").append(taskStrings[i]).append("\n");
-            }
-            sb.append("\n");
-            sb.append("You have ").append(tasks.getSize()).append(" tasks in the list.");
-            return sb.toString();
         }
+
+        StringBuilder sb = new StringBuilder("History:\n");
+        String[] taskStrings = tasks.toString().split("\n");
+        for (int i = 0; i < taskStrings.length; i++) {
+            sb.append((i + 1)).append(". ").append(taskStrings[i]).append("\n");
+        }
+        sb.append("\n");
+        sb.append("You have ").append(tasks.getSize()).append(" tasks in the list.");
+        return sb.toString();
     }
 
     /**
@@ -102,13 +102,13 @@ public class Ui {
     public String showMatchingTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
             return "Hmm, no tasks match your search.  Maybe try a different keyword? 🤔";
-        } else {
-            StringBuilder sb = new StringBuilder("Ta-da! ✨ Here are the tasks matching your search:\n");
-            for (int i = 0; i < tasks.size(); i++) {
-                sb.append("  ").append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
-            }
-            return sb.toString();
         }
+
+        StringBuilder sb = new StringBuilder("Ta-da! ✨ Here are the tasks matching your search:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append("  ").append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
+        }
+        return sb.toString();
     }
 
     /**

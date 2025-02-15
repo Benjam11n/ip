@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import joey.enums.TaskType;
 import joey.enums.ToggleType;
+import joey.storage.Storage;
 
 /**
  * Represents a task with a start and end date.
@@ -41,7 +42,8 @@ public class Event extends Task {
 
     @Override
     public String getStorageFormat() {
-        return String.format("E|%s|%b|%s|%s", getDescription(), isDone(), this.startDate, this.endDate);
+        return String.format("%s|%s|%b|%s|%s", TaskType.EVENT,
+                getDescription(), isDone(), this.startDate, this.endDate);
     }
 
     /**
@@ -53,13 +55,25 @@ public class Event extends Task {
      */
     public static Task createFromStorage(String data) {
         String[] parts = data.split("\\|");
-        if (parts.length == 5) {
-            Event event = new Event(parts[1], LocalDate.parse(parts[3]), LocalDate.parse(parts[4]));
-            if (Boolean.parseBoolean(parts[2])) {
-                event.toggle(ToggleType.MARK);
-            }
-            return event;
+        if (!(parts.length == Storage.EVENT_PARTS_LENGTH)) {
+            return null;
         }
-        return null;
+
+        Event event = createEventFromParts(parts);
+        applyCompletionStatus(event, parts[Storage.STATUS_INDEX]);
+
+        return event;
+    }
+
+    private static Event createEventFromParts(String[] parts) {
+        return new Event(parts[Storage.DESCRIPTION_INDEX],
+                LocalDate.parse(parts[Storage.EVENT_START_DATE_INDEX]),
+                LocalDate.parse(parts[Storage.EVENT_END_DATE_INDEX]));
+    }
+
+    private static void applyCompletionStatus(Event event, String status) {
+        if (Boolean.parseBoolean(status)) {
+            event.toggle(ToggleType.MARK);
+        }
     }
 }

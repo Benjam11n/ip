@@ -2,6 +2,7 @@ package joey.task;
 
 import joey.enums.TaskType;
 import joey.enums.ToggleType;
+import joey.storage.Storage;
 
 /**
  * Represents a basic todo task without a specific date.
@@ -27,7 +28,7 @@ public class Todo extends Task {
 
     @Override
     public String getStorageFormat() {
-        return String.format("T|%s|%b", getDescription(), isDone());
+        return String.format("%s|%s|%b", TaskType.TODO, getDescription(), isDone());
     }
 
     /**
@@ -39,13 +40,23 @@ public class Todo extends Task {
      */
     public static Task createFromStorage(String data) {
         String[] parts = data.split("\\|");
-        if (parts.length == 3) {
-            Todo todo = new Todo(parts[1]);
-            if (Boolean.parseBoolean(parts[2])) {
-                todo.toggle(ToggleType.MARK);
-            }
-            return todo;
+        if (!(parts.length == Storage.TODO_PARTS_LENGTH)) {
+            return null;
         }
-        return null;
+
+        Todo todo = createTodoFromParts(parts);
+        applyCompletionStatus(todo, parts[Storage.STATUS_INDEX]);
+
+        return todo;
+    }
+
+    private static Todo createTodoFromParts(String[] parts) {
+        return new Todo(parts[Storage.DESCRIPTION_INDEX]);
+    }
+
+    private static void applyCompletionStatus(Todo todo, String status) {
+        if (Boolean.parseBoolean(status)) {
+            todo.toggle(ToggleType.MARK);
+        }
     }
 }

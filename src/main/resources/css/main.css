@@ -1,10 +1,10 @@
 .root {
     main-color: #292524;
-    primary: #e11d48;
-    accent: #be123c;
+    primary: #be123c;
+    accent: #9f1239;
     foreground: #a8a29e;
-    warning: #7f1d1d;
-    accent-warning: #450a0a;
+    warning: #9f1239;
+    accent-warning: #881337;
     -fx-background-color: main-color;
 }
 
